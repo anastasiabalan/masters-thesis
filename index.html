@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Association Between Puberty and Social Value Orientation — Anastasia Bălan</title>
+<meta name="description" content="Master's thesis: The Association Between Puberty and Social Value Orientation, Examining Social Brain Activation as a Mediator — Anastasia Bălan, Leiden University.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ECEEE6;
+    --paper-deep:#E1E4D8;
+    --panel:#F4F5EF;
+    --ink:#181B17;
+    --ink-soft:#4C5049;
+    --ink-faint:#83867C;
+    --accent:#2B3A67;
+    --accent-soft:#5B6690;
+    --gold:#93712F;
+    --rule:#C7CBBB;
+    --rule-soft:#D7DACD;
+    --serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+    --measure: 66ch;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-optical-sizing:auto;
+    font-size:18px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--accent);}
+  a:hover{color:var(--gold);}
+
+  ::selection{background:var(--gold);color:#fff;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:40;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    padding:0.7rem 1.4rem;
+    background:rgba(236,238,230,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--rule);
+  }
+  .topbar-title{
+    font-size:0.85rem;
+    font-style:italic;
+    color:var(--ink-soft);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .topbar-btn{
+    flex:none;
+    font-family:var(--serif);
+    font-size:0.85rem;
+    background:none;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    padding:0.4rem 0.9rem;
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .topbar-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* ---------- Contents drawer ---------- */
+  .drawer-overlay{
+    position:fixed;inset:0;background:rgba(20,22,18,0.35);
+    opacity:0;pointer-events:none;transition:opacity .25s ease;
+    z-index:50;
+  }
+  .drawer-overlay.open{opacity:1;pointer-events:auto;}
+  .drawer{
+    position:fixed;top:0;right:0;height:100%;
+    width:min(380px,86vw);
+    background:var(--panel);
+    border-left:1px solid var(--rule);
+    transform:translateX(100%);
+    transition:transform .3s ease;
+    z-index:60;
+    overflow-y:auto;
+    padding:1.6rem 1.6rem 3rem;
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer h2{
+    font-size:1rem;font-style:italic;font-weight:500;
+    margin:0 0 1.1rem;color:var(--ink-soft);
+  }
+  .drawer-close{
+    position:absolute;top:1.2rem;right:1.4rem;
+    background:none;border:none;font-size:1.3rem;
+    color:var(--ink-soft);cursor:pointer;line-height:1;
+  }
+  .drawer nav ul{list-style:none;margin:0;padding:0;}
+  .drawer nav a{
+    display:block;padding:0.4rem 0;
+    text-decoration:none;color:var(--ink);
+    font-size:0.95rem;border-bottom:1px dotted var(--rule);
+  }
+  .drawer nav .sub a{padding-left:1rem;font-size:0.88rem;color:var(--ink-soft);}
+  .drawer nav a:hover{color:var(--gold);}
+
+  /* ---------- Cover ---------- */
+  .cover{
+    max-width:780px;
+    margin:0 auto;
+    padding:5.5rem 1.6rem 3.5rem;
+    text-align:center;
+  }
+  .cover .kicker{
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:1rem;
+    margin-bottom:1.6rem;
+  }
+  .cover h1{
+    font-size:clamp(2rem, 5vw, 3.1rem);
+    font-weight:500;
+    font-style:italic;
+    line-height:1.18;
+    margin:0 0 2rem;
+    color:var(--ink);
+  }
+  .cover .byline{
+    font-size:1.15rem;
+    margin:0 0 0.3rem;
+  }
+  .cover .byline .name{font-style:italic;}
+  .cover .supervisors{
+    color:var(--ink-soft);
+    font-size:0.98rem;
+    margin:0.6rem 0 0;
+  }
+  .cover .institution{
+    margin-top:2.2rem;
+    font-size:0.95rem;
+    color:var(--ink-faint);
+    letter-spacing:0.02em;
+  }
+  .rule{
+    border:none;border-top:1px solid var(--rule);
+    width:120px;margin:2.4rem auto;
+  }
+
+  .colophon{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:0 0;
+    max-width:780px;
+    margin:0 auto 3rem;
+    padding:0 1.6rem;
+  }
+  .colophon .stat{
+    padding:0.3rem 1.1rem;
+    border-left:1px solid var(--rule-soft);
+    text-align:left;
+    min-width:110px;
+  }
+  .colophon .stat:first-child{border-left:none;}
+  .colophon .stat b{
+    display:block;font-size:1.15rem;font-weight:500;color:var(--accent);
+  }
+  .colophon .stat span{
+    font-size:0.78rem;color:var(--ink-faint);font-style:italic;
+  }
+
+  /* ---------- Table of contents (inline) ---------- */
+  .toc-section{
+    max-width:var(--measure);
+    margin:0 auto;
+    padding:2.5rem 1.6rem 4rem;
+  }
+  .toc-section h2{
+    font-size:1.1rem;font-style:italic;font-weight:500;
+    color:var(--ink-soft);margin:0 0 1.3rem;
+  }
+  .toc-list{list-style:none;margin:0;padding:0;}
+  .toc-list li{margin:0;}
+  .toc-list a{
+    display:flex;align-items:baseline;gap:0.4rem;
+    text-decoration:none;color:var(--ink);
+    padding:0.32rem 0;
+  }
+  .toc-list a::after{
+    content:"";flex:1;
+    border-bottom:1px dotted var(--rule);
+    margin:0 0.3rem 0.2rem;
+  }
+  .toc-list .sub a{padding-left:1.3rem;font-size:0.92rem;color:var(--ink-soft);}
+  .toc-list .subsub a{padding-left:2.4rem;font-size:0.88rem;color:var(--ink-faint);}
+
+  /* ---------- Main content ---------- */
+  main{
+    max-width:var(--measure);
+    margin:0 auto;
+    padding:1rem 1.6rem 6rem;
+  }
+  section.chapter{
+    padding-top:3.4rem;
+    border-top:1px solid var(--rule-soft);
+    margin-top:3.4rem;
+  }
+  section.chapter:first-of-type{border-top:none;margin-top:0;}
+
+  h2.chapter-title{
+    font-size:1.9rem;font-weight:500;font-style:italic;
+    margin:0 0 1.6rem;color:var(--ink);
+  }
+  h3{
+    font-size:1.25rem;font-weight:600;font-style:normal;
+    margin:2.4rem 0 0.9rem;color:var(--ink);
+  }
+  h4{
+    font-size:1.05rem;font-weight:600;font-style:italic;
+    margin:1.8rem 0 0.6rem;color:var(--ink-soft);
+  }
+
+  p{margin:0 0 1.15rem;}
+  p:last-child{margin-bottom:0;}
+
+  .lede{
+    font-size:1.08rem;color:var(--ink-soft);
+    border-left:2px solid var(--accent);
+    padding-left:1.1rem;margin:0 0 2rem;
+  }
+
+  sup{font-size:0.7em;}
+
+  /* ---------- Figures ---------- */
+  figure{
+    margin:2.4rem 0;
+    padding:1.1rem;
+    background:var(--panel);
+    border:1px solid var(--rule-soft);
+  }
+  figure img{
+    display:block;width:100%;height:auto;
+    border:1px solid var(--rule-soft);
+    background:#fff;
+  }
+  figcaption{
+    font-size:0.88rem;
+    font-style:italic;
+    color:var(--ink-soft);
+    margin-top:0.8rem;
+    line-height:1.5;
+  }
+  figcaption b{font-style:normal;color:var(--ink);}
+
+  /* ---------- Tables ---------- */
+  .table-caption{
+    text-align:left;font-size:0.88rem;font-style:italic;
+    color:var(--ink-soft);margin:2rem 0 0.6rem;
+    line-height:1.5;
+  }
+  .table-caption b{font-style:normal;color:var(--ink);}
+  .table-wrap{
+    overflow-x:auto;
+    margin:0 0 2rem;
+  }
+  table{
+    border-collapse:collapse;
+    width:100%;
+    font-size:0.88rem;
+  }
+  th, td{
+    padding:0.5rem 0.8rem;
+    text-align:left;
+    border-bottom:1px solid var(--rule-soft);
+    white-space:nowrap;
+  }
+  thead th{
+    border-top:1.5px solid var(--ink);
+    border-bottom:1.5px solid var(--ink);
+    font-weight:600;
+  }
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink);}
+
+  /* ---------- Example task table (in-text) ---------- */
+  .task-example{
+    margin:1.6rem 0;font-size:0.95rem;
+  }
+  .task-example table{width:auto;min-width:280px;}
+  .task-example td, .task-example th{white-space:normal;}
+
+  /* ---------- Blockquote / equations style note ---------- */
+  .note{
+    font-size:0.92rem;color:var(--ink-soft);
+    background:var(--panel);
+    border-left:2px solid var(--gold);
+    padding:0.9rem 1.1rem;
+    margin:1.8rem 0;
+  }
+
+  /* ---------- References ---------- */
+  .refs{
+    list-style:none;
+    counter-reset:refcounter;
+    margin:0;padding:0;
+    font-size:0.93rem;
+    color:var(--ink-soft);
+  }
+  .refs li{
+    counter-increment:refcounter;
+    position:relative;
+    padding-left:2.6rem;
+    margin-bottom:0.9rem;
+    line-height:1.55;
+  }
+  .refs li::before{
+    content:counter(refcounter) ".";
+    position:absolute;left:0;top:0;
+    color:var(--ink-faint);
+    font-variant-numeric:tabular-nums;
+  }
+  .refs a{word-break:break-all;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    max-width:var(--measure);
+    margin:0 auto;
+    padding:2.5rem 1.6rem 5rem;
+    color:var(--ink-faint);
+    font-size:0.85rem;
+    font-style:italic;
+    border-top:1px solid var(--rule-soft);
+  }
+
+  @media (max-width:600px){
+    body{font-size:16.5px;}
+    .cover{padding:3.5rem 1.2rem 2.5rem;}
+    .colophon .stat{min-width:44%;}
+  }
+
+  @media print{
+    .topbar, .drawer, .drawer-overlay{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">Puberty &amp; Social Value Orientation — Bălan</span>
+  <button class="topbar-btn" id="openDrawer">Contents</button>
+</div>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" id="closeDrawer" aria-label="Close contents">&times;</button>
+  <h2>Contents</h2>
+  <nav>
+    <ul>
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li class="sub"><a href="#leiden-study">The Leiden Self-Concept study</a></li>
+      <li class="sub"><a href="#puberty">Puberty</a></li>
+      <li class="sub"><a href="#svo-measure">Social value orientation</a></li>
+      <li class="sub"><a href="#fmri-demographics">fMRI sample demographics</a></li>
+      <li class="sub"><a href="#fmri-task">fMRI task description</a></li>
+      <li class="sub"><a href="#fmri-acquisition">fMRI data acquisition</a></li>
+      <li class="sub"><a href="#fmri-preprocessing">fMRI preprocessing</a></li>
+      <li class="sub"><a href="#statistical-analyses">Statistical analyses</a></li>
+      <li><a href="#results">Results</a></li>
+      <li class="sub"><a href="#questionnaire-hormone">Questionnaire &amp; hormone data</a></li>
+      <li class="sub"><a href="#trajectories">Post hoc analyses: Trajectories</a></li>
+      <li class="sub"><a href="#within-subject-stability">Within-subject stability</a></li>
+      <li class="sub"><a href="#predicting-svo">Predicting SVO from puberty</a></li>
+      <li class="sub"><a href="#correlations">Correlations</a></li>
+      <li class="sub"><a href="#mediation-results">Mediation analyses</a></li>
+      <li><a href="#discussion">Discussion</a></li>
+      <li class="sub"><a href="#mediation-discussion">Mediation analyses</a></li>
+      <li class="sub"><a href="#puberty-svo-link">The link between puberty and SVO</a></li>
+      <li class="sub"><a href="#direct-reflected">Direct and reflected self-evaluations</a></li>
+      <li class="sub"><a href="#limitations">Limitations &amp; future research</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
+      <li><a href="#acknowledgements">Acknowledgements</a></li>
+      <li><a href="#references">References</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<div class="cover">
+  <p class="kicker">Master's thesis · Developmental &amp; Educational Psychology</p>
+  <h1>The Association Between Puberty and Social Value Orientation</h1>
+  <p style="font-size:1.05rem;color:var(--ink-soft);margin-top:-1rem;margin-bottom:2rem;">Examining Social Brain Activation as a Mediator</p>
+  <p class="byline">By <span class="name">Anastasia Bălan</span></p>
+  <p class="supervisors">Supervised by Prof. Dr. Eveline Crone &amp; Dr. Kayla Green</p>
+  <p class="institution">Leiden University</p>
+  <hr class="rule">
+</div>
+
+<div class="colophon">
+  <div class="stat"><b>55,069</b><span>Characters, with spaces</span></div>
+  <div class="stat"><b>220</b><span>Words in abstract</span></div>
+  <div class="stat"><b>12</b><span>Figures</span></div>
+  <div class="stat"><b>6</b><span>Tables</span></div>
+  <div class="stat"><b>77</b><span>References</span></div>
+</div>
+
+<div class="toc-section">
+  <h2>Contents</h2>
+  <ul class="toc-list">
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#methods">Methods</a></li>
+    <li class="sub"><a href="#leiden-study">The Leiden Self-Concept study</a></li>
+    <li class="sub"><a href="#puberty">Puberty</a></li>
+    <li class="sub"><a href="#svo-measure">Social value orientation (SVO)</a></li>
+    <li class="sub"><a href="#fmri-demographics">fMRI sample demographics</a></li>
+    <li class="sub"><a href="#fmri-task">fMRI task description</a></li>
+    <li class="sub"><a href="#fmri-acquisition">fMRI data acquisition</a></li>
+    <li class="sub"><a href="#fmri-preprocessing">fMRI preprocessing</a></li>
+    <li class="sub"><a href="#statistical-analyses">Statistical analyses</a></li>
+    <li><a href="#results">Results</a></li>
+    <li class="sub"><a href="#questionnaire-hormone">Questionnaire &amp; hormone data</a></li>
+    <li class="subsub"><a href="#pds-results">PDS</a></li>
+    <li class="subsub"><a href="#hormone-levels">Hormone levels</a></li>
+    <li class="sub"><a href="#trajectories">Post hoc analyses: Trajectories</a></li>
+    <li class="subsub"><a href="#pds-trajectory">PDS</a></li>
+    <li class="subsub"><a href="#testosterone-cortisol-trajectory">Testosterone and cortisol</a></li>
+    <li class="sub"><a href="#within-subject-stability">Within-subject stability and correlations</a></li>
+    <li class="sub"><a href="#predicting-svo">Predicting SVO based on pubertal development</a></li>
+    <li class="sub"><a href="#correlations">Correlations</a></li>
+    <li class="sub"><a href="#mediation-results">Mediation analyses</a></li>
+    <li><a href="#discussion">Discussion</a></li>
+    <li class="sub"><a href="#mediation-discussion">Mediation analyses</a></li>
+    <li class="sub"><a href="#puberty-svo-link">The link between puberty and SVO</a></li>
+    <li class="subsub"><a href="#testosterone-discussion">Testosterone</a></li>
+    <li class="subsub"><a href="#pds-discussion">PDS</a></li>
+    <li class="sub"><a href="#direct-reflected">Direct and reflected self-evaluations</a></li>
+    <li class="sub"><a href="#limitations">Limitations and recommendations for future research</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</div>
+
+<main>
+
+<section class="chapter" id="abstract">
+  <h2 class="chapter-title">Abstract</h2>
+  <p>Entering adolescence signals the start of a crucial period for one's self-concept development. Previous literature has highlighted the involvement of social brain structures such as the medial prefrontal cortex and the temporoparietal junction in self-evaluations, as well as prosocial behavior. Self-concept, neural activation and prosocial behavior have been thoroughly studied in relation to age, but there is limited research on the involvement of puberty in this dynamic. One facet of prosocial behavior is social value orientation (SVO), a specific pattern for resource division between self and others.</p>
+  <p>The present paper investigated whether neural activation during a self-concept fMRI task mediated the relationship between puberty and social value orientation in an adolescent sample, measured longitudinally across three waves. Pubertal development has been operationalized as subjective and objective, making use of both a self-report tool and hormone measurements. As hypothesized, neural activation was observed in both the medial prefrontal cortex and the bilateral temporoparietal junction when comparing the direct self-evaluation condition to the control one. Interestingly, higher testosterone (indicative of more advanced pubertal development) was associated with more prosocial decision-making in the SVO task, but only in girls. The mediation hypothesis did not yield any significant findings. Yet, the current study provides evidence that puberty and hormones might be closely related to prosocial decision-making in adolescence while exploring a vastly under-researched topic.</p>
+</section>
+
+<section class="chapter" id="introduction">
+  <h2 class="chapter-title">Introduction</h2>
+  <p>Adolescence is one of the most formative periods in one's development. Starting from the age of 10–11 years, children gradually become less dependent on their parents as their need for independence is growing.<sup>1</sup> The increased contact with the environment beyond extended family settings allows adolescents to start broadening their identities and expanding their knowledge.<sup>2</sup> Navigating increasingly complex social situations, such as peer interactions, requires adolescents to go through many developmental changes once they enter puberty. Being accepted by one's peers becomes very important, as adolescents start increasingly focusing on the opinions of those around them.<sup>3,4</sup> Acquiring elevated social awareness skills thus allows adolescents to also explore their own sense of self as they become more aware of their uniqueness and distinctiveness.<sup>5</sup></p>
+  <p>One key aspect that develops during adolescence is the self-concept, which is defined as the way someone perceives their own self. The process of constructing a coherent sense of self emerges during early adolescence, as children who enter puberty start exploring who they are and what their place in society is.<sup>6</sup> One's personal self-concept is strongly related to their social self, as there is a great degree of integration of social and personal self-evaluations.<sup>7,8</sup> Personal self-evaluations can be operationalized as direct or reflected.<sup>9,10</sup> The former refers to the knowledge an individual has about themselves, while the latter represents the perceived knowledge and beliefs that others hold about the individual.</p>
+  <p>In the last two decades of social cognition research, a novel direction has been established, culminating with the discovery of a network called the 'social brain'.<sup>11,12</sup> The Social Information Processing Network model postulates that processing social information is a result of different neural nodes interacting.<sup>13</sup> More specifically, the cognitive-regulatory node is involved in perspective-taking and cognitive control and appears to display a linear developmental trajectory while contributing to self-concept maturation.<sup>14,15</sup> Within this node, two important neural structures have been extensively studied in previous years, which provide evidence of a distinct neural circuitry involved in self-concept development.</p>
+  <p>Firstly, the medial prefrontal cortex (mPFC) is involved in direct self-evaluations, and in one's autobiographical memories.<sup>16–18</sup> Previous findings attest to its crucial role related to the knowledge of both person-specific and general experiences in one's life. Several studies done on adolescent samples report elevated neural activity in the mPFC during tasks pertaining to one's direct self-evaluations compared to control conditions,<sup>19–21</sup> with some evidence showing mPFC activation for direct self-evaluation increasing across three waves.<sup>7</sup> Earlier research provides valuable information that supports these recent findings, as mPFC activation has been observed to be stronger when the domain was also more personally relevant to the participant.<sup>22</sup></p>
+  <p>Secondly, the temporoparietal junction (TPJ) is a structure involved in perspective-taking as well as mentalizing, which refers to individuals perceiving and understanding their own intentions, thoughts and feelings, as well as others'.<sup>11</sup> Moreover, the TPJ is crucial when engaging in direct versus reflected self-evaluations, alongside the mPFC.<sup>23</sup> Such findings indicate the role of TPJ in differentiating between one's own thoughts and others', as well as reasoning about what others may think, and it further supports TPJ's involvement in perspective taking.</p>
+  <p>The mPFC and the TPJ thus represent valuable candidates for studying self-concept development in adolescence, which is why the present study aims to expand existing knowledge on this topic, specifically by understanding its role in relation to the broader scope of social behaviors. Interestingly, these two structures are also mentioned in previous literature when discussing the neural bases of prosocial behavior.<sup>24</sup> Such behavior is related to social cognition, and it refers to various volitional acts meant to help, cooperate or share with, as well as comfort someone else.<sup>25</sup> Reciprocal social relationships heavily rely on the display of prosocial behavior. Helping and trusting others are situations where one needs to consider someone else's intentions and thoughts. Considering the importance of peer relationships and inclusion within a group as defining characteristics for adolescence, prosocial behavior is therefore a key element to be investigated.</p>
+  <p>There is a considerable amount of knowledge pertaining to the fact that prosocial behavior changes throughout adolescence and early adulthood, with most studies on the topic reporting a general increase across adolescence.<sup>26,27</sup> An example of prosocial behavior is giving behavior, where one distributes valuable resources between the self and someone else.<sup>28</sup> One can display a steady preference for certain patterns of outcomes when having to divide resources between oneself and others.<sup>29</sup> These preferences reflect a certain social value orientation (SVO) and they can be assessed using various economic games. One widely used option is the Triple Dominance Measure, a 9-item questionnaire that requires the participant to divide points between themselves and an unknown other.<sup>30</sup> There are three answer options for each item, each corresponding to a different pattern of resource distribution. The Triple Dominance Measure was shown to possess noteworthy internal and construct validity, as well as outstanding stability and high reliability.<sup>31</sup></p>
+  <p>Generally, most research about adolescence uses age as a predictor and there is a lack of insight into how puberty itself might influence both self-concept and prosocial behavior.<sup>32</sup> Puberty marks the start of adolescence with a rise in gonadal hormones, which have a great impact upon brain development.<sup>33</sup> The activation of multiple neuroendocrine systems kickstarts a complex brain remodeling process, with hormones such as testosterone and DHEA being involved in both the neural and the behavioral variations that arise in adolescence.<sup>34</sup> Furthermore, the onset of puberty represents a pivotal moment as individuals change how they evaluate themselves by engaging in peer interaction more often than before.<sup>15</sup> Such findings strongly suggest the involvement of puberty in the relationship between self-concept and prosocial behavior, but there are not enough studies that examine this topic in depth.</p>
+  <p>For the sake of obtaining a complete perspective upon puberty levels, it is useful to make a distinction between subjective and objective measures. One widely used subjective measure is the Pubertal Development Scale (PDS), which allows participants to assess how far along in puberty they are from a subjective point of view, while demonstrating good reliability.<sup>35</sup> Self-reported data can be combined with objective measures of puberty, such as hormonal measurements, in order to provide a complete perspective on one's pubertal development. In the present study, this was achieved by conducting salivary testosterone and cortisol analyses.</p>
+  <p>Since self-knowledge has a clear neural signature when individuals evaluate their own traits,<sup>36</sup> fMRI tasks can provide insight into the underlying mechanisms that guide complex behavior. In line with previous research, we expect neural activation in the medial prefrontal cortex and the bilateral temporoparietal junction during a direct self-evaluation task. Our main hypothesis states that neural activation in social brain areas mediates the link between puberty and social value orientation. Furthermore, we hypothesize that increased pubertal development will lead to more prosocial decision-making in the social value orientation task. To address these hypotheses, we've formulated three aims. First, the main aim of the current study is to investigate whether the association between puberty and social value orientation is partly explained (i.e. mediated) by neural activity during an fMRI self-evaluation task. Secondly, to study the nature of the relationship between puberty and social value orientation. Finally, we aim to examine the relationship between puberty and neural activity related to self-concept.</p>
+</section>
+
+<section class="chapter" id="methods">
+  <h2 class="chapter-title">Methods</h2>
+
+  <h3 id="leiden-study">The Leiden Self-Concept study</h3>
+  <p>The present study has made use of previously recorded data, collected during the Leiden Self-Concept project,<sup>37</sup> a longitudinal study that consisted of three separate data collection timepoints, which will be referred to as waves. Participants completed various tasks and questionnaires, with those of interest for the present study displayed in Table 1 and Fig. A. Having access to three waves of data allowed for using puberty information from wave 1 as a predictor, neural data from wave 2 as a mediator and social value orientation data from wave 3 as the dependent variable.</p>
+  <p class="note">Table 1 and Fig. A (an overview of the Leiden Self-Concept study's three waves) were not embedded as figures in the source document and are therefore omitted here, consistent with the original file.</p>
+
+  <h3 id="puberty">Puberty</h3>
+  <p>Subjective puberty data were collected from 160 participants (86 girls, 74 boys) during wave 1 via the Pubertal Development Scale (PDS),<sup>35</sup> a questionnaire intended to obtain information about the physical changes specific to puberty. Four response options are given, each corresponding to either 1, 2, 3 or 4 points (from 'Has not yet begun to grow/Has not yet started changing' to 'Seems completed'). There is an additional option of 'I don't know', which corresponds to 0 points. Within this scale, the first three questions are unisex, pertaining to height growth, body hair growth and skin changes such as pimples. The following questions are split by sex, with two for boys and three for girls. The two questions that are boy-specific are related to the deepening of one's voice and facial hair growth; while the three questions for girls mention breast growth, the appearance of one's first period and how old they were at the time of their menarche. The 4-point scale remains the same for these last questions, except for the question about menstruation, where a 'Yes' is equal to 4 points and a 'No' corresponds to 1 point. The question about menarche asks for the age in years and does not have any points allocated to it. Total scores are computed by adding all points entered by a participant, with a maximum possible score of 20 points. The total score of each participant was used for all the analyses that included PDS.</p>
+  <p>As for objective puberty data, testosterone and cortisol levels were measured for 158 participants (85 girls, 73 boys) in morning saliva at wave 1.<sup>38</sup> All samples were collected by passive drool, with the testosterone sample being collected before tooth brushing or having breakfast. An enzyme-linked immunoassay (ELISA) was used to assay the samples by ARU Biomarker Laboratory located in Cambridge, UK. Both hormones were measured in duplicate, with the lower detection limits being 4 pg/mL for testosterone and 0.03 µg/dL for cortisol. Intra- and interassay variability were 3.7% and 5.9% for testosterone, and 4.3% and 4.2% for cortisol.</p>
+
+  <h3 id="svo-measure">Social value orientation (SVO)</h3>
+  <p>Information about participants' prosocial decision-making was collected by using the Triple Dominance Measure, which targets social value orientation.<sup>30</sup> 146 participants (80 girls, 66 boys) completed this behavioral task at wave 3. They were asked to imagine themselves being paired with an unknown person that they would never meet, referred to as 'Other'. Participants were told that the Other will also be completing the same task, which entails circling one of three options, A – B – C, throughout 9 situations. The task asked participants to distribute coins between themselves and the Other. All participants were made aware that the more coins they accumulate for themselves, the better their own outcome; and vice versa for the Other. They were told there are no right or wrong answers, while being reminded that the coins are valuable. An example of an item in the Triple Dominance Measure looks like this:</p>
+
+  <div class="task-example">
+    <table>
+      <tbody>
+        <tr><td></td><td><b>A</b></td><td><b>B</b></td><td><b>C</b></td></tr>
+        <tr><td>(1) You get</td><td>480</td><td>540</td><td>480</td></tr>
+        <tr><td>Other gets</td><td>80</td><td>280</td><td>480</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Each situation thus offers the possibility of choosing between a prosocial choice (C), an individualistic choice (B) and a competitive choice (A). For each prosocial choice, 3 points were scored. An individualistic choice was worth 2 points, while a competitive one yielded 1 point. After participants had completed all nine items, all points were added up into a total score, used for all analyses involving SVO. The maximum score is 27 points and it would correspond to prosocial choices throughout all nine situations/items.</p>
+
+  <h3 id="fmri-demographics">fMRI sample demographics</h3>
+  <p>160 clinically healthy adolescent participants (86 girls, 74 boys) completed the self-concept fMRI task during the second wave. All participants were right-handed and had no neurological or psychiatric diagnoses. All participants had either normal or corrected-to-normal vision. 10 participants were excluded due to excessive head movements and technical issues. The final sample for all neural data analyses was thus made up of 150 participants with ages between 11 and 21 years, out of which 143 were born in the Netherlands. Participants born outside of the Netherlands were of either Dutch or European descent. 29 participants reported either one (n = 25) or both (n = 4) parents born outside of the Netherlands, with 58% of these parents being born in another European country. A report of each family's gross annual income was requested, with 6% of parents declining to disclose. Fifty families declared a gross annual income higher than €76,000, whereas 11 others disclosed earning less than €31,000 per year.</p>
+  <p>Informed consent was signed by all participants, as well as both parents in the case of minors, prior to inclusion in the study. Ethical approval was granted by the Medical Ethics Committee of the Leiden University Medical Centre (NL54510.058.16). All participants were screened for MRI contraindications, psychiatric diagnoses and medication use prior to the scan session. A radiologist examined all scans and no clinically relevant findings were reported.</p>
+
+  <h3 id="fmri-task">fMRI task description</h3>
+  <p>All participants underwent an fMRI task that included two runs, each consisting of two experimental conditions and one control condition. Only one experimental condition is of interest for the present study, namely the direct self-evaluation. Participants were asked to read short sentences describing various positive or negative traits that belonged to three domains: physical, academic or prosocial. Only the prosocial domain was of interest for the current study (Fig. B). Within each domain, 10 statements were positively nuanced, while the remaining 10 had a negative valence (e.g., 'I stand up for others' and 'I don't like to lend my things' respectively). Therefore, 20 sentences were shown per domain, with a total of 60 per run.</p>
+  <p>Throughout the direct self-evaluation task, participants were asked to point out the extent to which each trait sentence applied to themselves using a scale from 1 to 4 (from 'Not at all' to 'Completely'). The control condition required subjects to categorize various traits (e.g., 'Having beautiful eyes') according to 4 options: 1 – school, 2 – social, 3 – appearance, 4 – I don't know. Twenty trait sentences were shown in the control condition, distributed equally into positively and negatively nuanced. Everyone was able to indicate an answer by pressing 4 buttons reachable with their right hand, using all fingers except for their thumb.</p>
+
+  <figure>
+    <img src="images/fig-b-task-trials.png" alt="Diagram showing example trials from the direct self-evaluation and control conditions of the fMRI task, with a fixation cross, trait statement, response scale, and feedback highlighted in yellow.">
+    <figcaption><b>Fig. B.</b> Examples of Trials Included in the Direct Self-evaluation and the Control Conditions. Ms = milliseconds. Each trial began with a black screen whose duration varied between 0 and 4400 ms. This jittering implies introducing randomized, variable intervals between items in order to prevent participants from anticipating any stimuli. A fixation cross is then displayed for 400 ms, after which the stimulus appears on screen for 4600 ms. Reproduced and adapted with the author's permission.<sup>37</sup></figcaption>
+  </figure>
+
+  <p>Within each run, the trials were pseudorandomized based on domains (physical, academic and prosocial). OptSeq was used for both the optimization of the trial order, as well as adding jittered intervals in between trials, which ranged from 0 to 4400 ms.<sup>39</sup> A 400 ms fixation cross appeared at the beginning of each trial, after which the actual stimulus was displayed for 4600 ms. Subjects were able to respond to the sentence within this time frame and the number they chose turned yellow, indicating that their decision was successfully registered. When a subject failed to produce an answer within the allocated time frame, the screen would display the words 'Too late!' for a duration of 1000 ms. No late-response trials were included in any analyses.</p>
+
+  <h3 id="fmri-acquisition">fMRI data acquisition</h3>
+  <p>All MRI scans were conducted using a Philips 3T MRI scanner and a standard whole-head coil attachment. Participants were able to watch a screen placed behind the scanner via a mirror attached to the head coil. Functional scans were acquired using T2*-weighted echo-planar imaging (EPI). TR was set to 2200 msec, TE was 30 msec, acquisition was sequential, with 37 slice sequences where each one measured 2.75 mm. FOV was 220 × 220 × 111.65 mm. The first two volumes were disposed of to account for T1 saturation. Once the functional data were collected, anatomical reference was obtained by means of a high-resolution T1-FFE 3D scan. The settings for this scan were TR shortest msec, TE at 4.6 msec, voxel size of 0.875 mm, 140 slices and a FOV of 224 × 178.5 × 168 mm.</p>
+
+  <h3 id="fmri-preprocessing">fMRI preprocessing</h3>
+  <p>SPM12 was used to analyze all collected data.<sup>40</sup> All the following steps had already been realized and described in a previous paper.<sup>7</sup> Differences in rigid body movement and slice-timing acquisition were considered and corrected for. Structural and functional volumes were all spatially normalized to T1 templates. The algorithm used for this normalization involved a 12-parameter affine transformation, as well as a nonlinear transformation related to cosine basis functions. Volumes were resampled to 3 mm cubic voxels. Functional volumes were spatially smoothed using a 6 mm FWHM isotropic Gaussian kernel.</p>
+  <p>To estimate neural activity, a model of the fMRI time series was constructed. Each event was considered as instantaneous (zero duration) and they were all convolved with the hemodynamic response function (HRF) to predict the observed BOLD signal. The events of interest modelled for the direct condition were 'Direct-Prosocial-Negative' and 'Direct-Prosocial-Positive'. The control condition had one event of interest modelled ('Control'), which was collapsed across valences and domains. Late-response trials were modelled as events of zero interest and they were used as covariates within a general linear model, alongside a basic set of cosine functions that served as high-pass filters. The model also included six motion regressors and the resulting contrast images were computed subject-by-subject and submitted to group analyses. Whole-brain activation patterns are visible in Fig. C.</p>
+
+  <figure>
+    <img src="images/fig-c-whole-brain.png" alt="Whole-brain fMRI activation maps showing clusters of activation in the medial prefrontal cortex and bilateral temporoparietal junction for the direct self-evaluation versus control contrast, shown as sagittal, coronal, and axial slices and 3D rendered brain surfaces.">
+    <figcaption><b>Fig. C.</b> Neural Activation Observed in the mPFC and TPJ Upon Performing Whole-Brain Analyses. These analyses were conducted on timepoint 2 data and they reflect the contrast in activation between direct self-evaluation and the control condition. Courtesy of Prof. Dr. Eveline Crone.</figcaption>
+  </figure>
+
+  <p>Following the whole-brain analyses, the MarsBaR toolbox<sup>41</sup> was used to create three Region of Interest analyses (ROIs), which consisted of 8 mm spheres (Fig. D). These corresponded to the medial prefrontal cortex (x = −6, y = 50, z = 4), the right temporoparietal junction (x = −53, y = −59, z = 20) and the left temporoparietal junction (x = 56, y = −56, z = 18). These ROIs were based on research regarding 'the social brain' network and its functionality in perspective-taking<sup>11</sup> and self-referential processing.<sup>20</sup> Parameter estimates were then extracted from these analyses. Firstly, activation levels were calculated for all direct trials versus control trials. Secondly, activation for the Direct &gt; Control contrast was correlated within each ROI.</p>
+
+  <figure>
+    <img src="images/fig-d-roi-spheres.png" alt="Brain slice images showing three regions of interest marked as colored dots: the medial prefrontal cortex in dark blue, and the left and right anterior and posterior temporoparietal junction in dark blue, yellow, turquoise, and red.">
+    <figcaption><b>Fig. D.</b> Images Showcasing the ROI Spheres for the Medial Prefrontal Cortex, Anterior and Posterior Temporoparietal Junction. <b>1.</b> Dark blue = mPFC. <b>2 &amp; 3.</b> Dark blue = left anterior TPJ, yellow = right anterior TPJ, turquoise = left posterior TPJ, red = right posterior TPJ. Courtesy of Prof. Dr. Eveline Crone.</figcaption>
+  </figure>
+
+  <h3 id="statistical-analyses">Statistical analyses</h3>
+  <p>To achieve the first research aim, mediation models were conducted, in which the mPFC as well as the bilateral anterior and posterior TPJ activation served as mediators. Prior to performing the mediations, regression analyses were conducted to investigate the relationships between PDS, testosterone, cortisol, and SVO separately (aim 2). Conducting mediation models also allowed for the investigation of the direct relationship between puberty and self-concept-related neural activation (aim 3). The contrasts for left and right temporoparietal junctions were collapsed and averaged to reduce the number of mediation analyses. A total of 12 mediation models were conducted. The sample size varied depending on the type of analysis that was performed. Overall, 190 unique participants were observed across all data sources.</p>
+  <p>The age trajectories of subjective and objective puberty variables were investigated post hoc by calculating linear and quadratic effects. For these analyses, data from all three collection waves were considered. 189 participants were included (96 girls, 93 boys). Three plots were created, one for each measure of puberty (PDS, testosterone, cortisol).</p>
+  <p>Log transforms were applied to both testosterone and cortisol data to stabilize the variance, as hormonal markers are typically non-normally distributed.</p>
+  <p>All statistical analyses were performed using R Statistical Software.<sup>42</sup> Mediation analyses were conducted using PROCESS,<sup>43</sup> with indirect effects estimated using bootstrapping with 5000 resamples. An alpha level of .05 was used for all statistical tests, unless explicitly stated otherwise.</p>
+</section>
+
+<section class="chapter" id="results">
+  <h2 class="chapter-title">Results</h2>
+
+  <h3 id="questionnaire-hormone">Questionnaire &amp; hormone data</h3>
+
+  <h4 id="pds-results">PDS</h4>
+  <p>The differences in pubertal development between boys and girls were assessed using data collected in the first timepoint (wave 1). Results show that girls (M = 15.05, SD = 3.55, n = 86) showed significantly higher PDS scores compared to boys (M = 13.47, SD = 4.59, n = 74); t(136.56) = −2.39, p = .018, d = −0.39. Fig. E displays the frequency distribution of PDS data from wave 1.</p>
+
+  <figure>
+    <img src="images/fig-e-pds-freq.png" alt="Bar chart showing frequency distribution of Pubertal Development Scale scores for boys and girls, with girls skewed toward higher scores.">
+    <figcaption><b>Fig. E.</b> Frequency Plot of the PDS Questionnaire Scores. Numbers on the Y-axis represent the amount of participants with a specific score on PDS (e.g. 10 = 10 participants).</figcaption>
+  </figure>
+
+  <h4 id="hormone-levels">Hormone levels</h4>
+  <p>We investigated sex differences in hormone levels as measured at wave 1 of data collection. The log-transformed testosterone mean for girls was 4.21 (SD = 0.38, n = 85 as per Table 2) and the mean for boys was 4.89 (SD = 0.72, n = 73 as per Table 3), with the original, back-transformed values available within the same tables. As expected, an independent samples t-test revealed that this difference in testosterone was significant, t(105.69) = 7.19, p &lt; .001, with a large effect size of d = 1.20. Using log-transformed cortisol, we found that girls (M = −1.10, SD = 0.57, n = 85) had significantly higher cortisol levels than boys (M = −1.39, SD = 0.53, n = 73); t(155.1) = −3.32, p = .001, d = −0.53. Fig. F reveals that testosterone and cortisol distributions resemble a Gaussian distribution upon being log-transformed.</p>
+
+  <p class="table-caption"><b>Table 2.</b> Testosterone and Cortisol Descriptive Statistics for Girls in Wave 1</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Girls</th><th>n</th><th>M after log</th><th>SD after log</th><th>M original</th><th>SD original</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Testosterone</td><td>85</td><td>4.211</td><td>0.382</td><td>67.41</td><td>1.46</td></tr>
+        <tr><td>Cortisol</td><td>85</td><td>−1.097</td><td>0.570</td><td>0.334</td><td>1.77</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="table-caption"><b>Table 3.</b> Testosterone and Cortisol Descriptive Statistics for Boys in Wave 1</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Boys</th><th>n</th><th>M after log</th><th>SD after log</th><th>M original</th><th>SD original</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Testosterone</td><td>73</td><td>4.886</td><td>0.720</td><td>132.44</td><td>2.05</td></tr>
+        <tr><td>Cortisol</td><td>73</td><td>−1.388</td><td>0.528</td><td>0.250</td><td>1.70</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure>
+    <img src="images/fig-f-hormone-freq.png" alt="Two bar charts showing frequency distributions of log-transformed testosterone and cortisol at wave 1, separated by sex.">
+    <figcaption><b>Fig. F.</b> Frequency Plots of Testosterone and Cortisol Scores Post Log-transform. Numbers on the Y-axis represent the amount of participants with a specific value when testing their salivary testosterone and cortisol (e.g. 10 = 10 participants). Values have been log-transformed to resemble the Gaussian distribution.</figcaption>
+  </figure>
+
+  <h3 id="trajectories">Post hoc analyses: Trajectories</h3>
+
+  <h4 id="pds-trajectory">PDS</h4>
+  <p>To verify whether the puberty measures captured development consistent with existing literature, we tested linear and quadratic age trajectories for the subjective puberty variable, PDS. The sample included 96 girls and 93 boys across all three waves of collection. For PDS, both girls and boys show significant quadratic trajectories across age, as seen in Fig. G(a). Girls demonstrated a significant linear increase (b = 4.48, p &lt; .001) and a significant negative quadratic effect (b = −0.116, p &lt; .001), with the occurrence of a plateau around 19.2 years of age (R² = 0.51). Boys showed the same patterns with a significant linear effect (b = 5.09, p &lt; .001) and a significant negative quadratic effect (b = −0.125, p &lt; .001), although their plateau occurred later, at 20.4 years old (R² = 0.63).</p>
+
+  <h4 id="testosterone-cortisol-trajectory">Testosterone and cortisol</h4>
+  <p>Linear and quadratic age effects were calculated for the objective measures of puberty, testosterone and cortisol levels. For testosterone, no linear or quadratic age-related effects were found for girls (b = 0.09, p = .46 and b = −0.001, p = .68 respectively). As for boys, they demonstrate a significant quadratic trajectory with a linear effect of b = 0.992 (p &lt; .001) and a quadratic effect of b = −0.025 (p &lt; .001). A steep rise can be observed in early adolescence, with a plateau around the age of 20 (Fig. G(b)). The sample size remains 189 (96 girls, 93 boys).</p>
+  <p>Finally, the same analyses for cortisol (n = 189) revealed no significant linear or quadratic trends for either girls or boys (all p &gt; .26), suggesting that cortisol levels remain largely stable across adolescence in both sexes (Fig. G(c)).</p>
+
+  <figure>
+    <img src="images/fig-g-trajectories.png" alt="Three scatter plots with fitted curves showing PDS, log-testosterone, and log-cortisol trajectories across age, separated by boys and girls, with individual participant trajectories connected across waves.">
+    <figcaption><b>Fig. G.</b> Developmental Trajectories Across Wave 1, 2 and 3 as Age Increases, Divided by Sex. <b>a.</b> PDS trajectories; <b>b.</b> Log-transformed testosterone trajectories; <b>c.</b> Log-transformed cortisol trajectories. Puberty and age data from all participants across all three waves of collection are included. Each dot corresponds to the score of a particular participant on the PDS questionnaire (Y-axis), completed at a specific age (X-axis). For each unique participant, all dots that have been plotted are united by a thin line (e.g. if one participant completed the PDS measure at all 3 timepoints, 3 dots are shown, united by 2 thin lines). Dots and thin lines can overlap; this can be observed by the degree of transparency that they display.</figcaption>
+  </figure>
+
+  <h3 id="within-subject-stability">Within-subject stability and correlations</h3>
+  <p>To test underlying associations and longitudinal stability, Spearman correlations were run between all puberty measures across waves. PDS showed strong stability across waves, with significant positive correlations between all three time points. Testosterone also demonstrated the same pattern of positive correlations across waves. Furthermore, testosterone at T1 was significantly correlated with PDS at T2 and T3. Testosterone at T2 demonstrated significant correlations with PDS from all three waves. Cortisol did not show cross-wave stability, with all correlations being non-significant except for one with testosterone at wave 2 (Fig. H).</p>
+
+  <figure>
+    <img src="images/fig-h-puberty-corr.png" alt="Correlation matrix heatmap of PDS, testosterone, and cortisol measurements across three waves, showing strong positive correlations between PDS and testosterone across waves and weak correlations with cortisol.">
+    <figcaption><b>Fig. H.</b> Correlation Matrix for Subjective and Objective Puberty Variables Across Waves. The numbers within boxes represent r coefficients, with black text in bold signifying a statistically significant correlation at p &lt; .05.</figcaption>
+  </figure>
+
+  <h3 id="predicting-svo">Predicting SVO based on pubertal development</h3>
+  <p>We investigated social value orientation data collected at timepoint 3. The mean score on the SVO measure was M = 24.25 with an SD of 3.56 for a sample of n = 146 participants. Upon investigating SVO patterns based on sex, there were no significant differences between boys and girls, t(118.68) = −1.75, p = .082. The frequency distribution of SVO data and the cross-wave correlation matrix are available in Fig. I (a, b).</p>
+
+  <figure>
+    <img src="images/fig-i-svo.png" alt="Left: bar chart showing frequency distribution of SVO scores by sex, skewed toward the maximum score. Right: correlation matrix showing SVO scores are moderately correlated across the three waves.">
+    <figcaption><b>Fig. I. a.</b> Frequency Distribution of SVO Scores. Numbers on the Y-axis represent the amount of participants with a specific score on SVO (e.g. 10 = 10 participants). <b>b.</b> Correlation Matrix for SVO Scores Across Waves. The numbers within boxes represent r coefficients, with black text in bold signifying a statistically significant correlation at a p &lt; .05. The specific wave of collection is indicated by T1, T2 or T3.</figcaption>
+  </figure>
+
+  <h4>Regression analyses</h4>
+  <p>Next, six linear regression models were run to examine the direct relationships between pubertal development and social value orientation (SVO). In all models, puberty variables measured during wave 1 were entered as predictors, while the sum of all nine SVO items at wave 3 served as the dependent variable. Age was entered as a covariate in all models. Given the pronounced sex differences in testosterone trajectories observed across waves, all models were run separately for boys and girls.<sup>44</sup> All variables were standardized prior to the analyses to allow for comparing effect sizes across models. None of the three boys-only models yielded any significant findings. As for the girls-only models, one significant regression was found, namely the one involving testosterone (F(2, 76) = 3.844, p = .026). R² was 0.092, a medium effect size, thus indicating that testosterone at wave 1 explains approximately 9.2% of the variance in SVO observed in girls at wave 3. Therefore, higher testosterone within the girls-only sample at wave 1 is associated with more prosocial decision-making at wave 3. Results can be observed in Tables 4 and 5.</p>
+
+  <p class="table-caption"><b>Table 4.</b> Results of the 6 Regression Models. * = significant at the p &lt; .05 threshold.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>b predictor</th><th>b Age</th><th>R²</th><th>F</th><th>p</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>SVO ~ PDS + Age, girls only</td><td>0.010, p = .947</td><td>−0.109, p = .472</td><td>0.010</td><td>0.401</td><td>.671</td></tr>
+        <tr><td>SVO ~ Testosterone + Age, girls only</td><td>0.307*, p = .009</td><td>−0.130, p = .250</td><td>0.0919</td><td>3.844*</td><td>.026*</td></tr>
+        <tr><td>SVO ~ Cortisol + Age, girls only</td><td>−0.061, p = .607</td><td>−0.079, p = .499</td><td>0.011</td><td>0.412</td><td>.664</td></tr>
+        <tr><td>SVO ~ PDS + Age, boys only</td><td>0.037, p = .841</td><td>0.067, p = .716</td><td>0.010</td><td>0.323</td><td>.725</td></tr>
+        <tr><td>SVO ~ Testosterone + Age, boys only</td><td>0.110, p = .554</td><td>0.004, p = .983</td><td>0.014</td><td>0.440</td><td>.646</td></tr>
+        <tr><td>SVO ~ Cortisol + Age, boys only</td><td>−0.029, p = .819</td><td>0.091, p = .460</td><td>0.009</td><td>0.288</td><td>.750</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="table-caption"><b>Table 5.</b> Sample Sizes for Each Regression Model</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Sample size (n)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>SVO ~ PDS + Age, girls only</td><td>80</td></tr>
+        <tr><td>SVO ~ Testosterone + Age, girls only</td><td>79</td></tr>
+        <tr><td>SVO ~ Cortisol + Age, girls only</td><td>79</td></tr>
+        <tr><td>SVO ~ PDS + Age, boys only</td><td>66</td></tr>
+        <tr><td>SVO ~ Testosterone + Age, boys only</td><td>65</td></tr>
+        <tr><td>SVO ~ Cortisol + Age, boys only</td><td>65</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="correlations">Correlations</h3>
+  <p>Next, Spearman correlations were run between the neural variables (mPFC, anterior TPJ, posterior TPJ) across all three waves (see Fig. J) to investigate temporal stability and consistency prior to using the ROIs as mediators. There were positive associations within waves, but not across waves (e.g., mPFC T1 – lrTPJa T1: r = 0.4 and mPFC T1 – lrTPJp T1: r = 0.51; p &lt; .05 for both examples). Furthermore, within-wave correlations were conducted to investigate the relationships between all variables of interest within each data collection wave (Fig. K).</p>
+
+  <figure>
+    <img src="images/fig-j-neural-corr.png" alt="Correlation matrix heatmap of mPFC, anterior TPJ, and posterior TPJ activation across three waves, showing significant positive correlations within waves but weaker correlations across waves.">
+    <figcaption><b>Fig. J.</b> Correlation Matrix for Neural Areas Across Waves. The numbers within boxes represent r coefficients, with black text in bold signifying a statistically significant correlation at p &lt; .05. The specific wave of collection is indicated by T1, T2 or T3. mPFC = medial prefrontal cortex. lrTPJa = anterior temporoparietal junction averaged across the 2 hemispheres. lrTPJp = posterior temporoparietal junction averaged across the 2 hemispheres.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/fig-k-within-wave-corr.png" alt="Three correlation matrix heatmaps, one per wave, showing relationships between testosterone, cortisol, mPFC, anterior TPJ, posterior TPJ, PDS, and SVO within each wave.">
+    <figcaption><b>Fig. K.</b> Correlation Matrices for Variables of Interest Within Waves of Collection. <b>a. 1 b. 2 c. 3.</b> The numbers within boxes represent r coefficients, with black text in bold signifying a statistically significant correlation at p &lt; .05. mPFC = medial prefrontal cortex. lrTPJa = anterior temporoparietal junction averaged across the 2 hemispheres. lrTPJp = posterior temporoparietal junction averaged across the 2 hemispheres.</figcaption>
+  </figure>
+
+  <h3 id="mediation-results">Mediation analyses</h3>
+  <p>The main goal was to test whether neural activity at wave 2 mediated the relationship between pubertal development at wave 1 and social value orientation (SVO) at wave 3. In total, 12 separate mediation models were conducted to examine this hypothesis. Throughout all analyses, SVO was the outcome variable and age was controlled for. For both PDS and cortisol, models were run for girls and boys combined, with the medial prefrontal cortex (mPFC), the bilateral anterior temporoparietal junction (TPJa) and bilateral posterior temporoparietal junction (TPJp) as mediators respectively. Testosterone models were run separately for girls and boys, using the same three mediators.<sup>45</sup> Bonferroni correction was applied, given the large number of tests. The resulting corrected alpha was thus α = 0.004, corresponding to 99.58% confidence intervals.</p>
+  <p>No significant results have been observed between neural activations in the regions of interest and SVO scores. Moreover, none of the 12 mediation models yielded a significant indirect effect, indicating that neural activity in the mPFC, TPJa or TPJp did not mediate the relationship between puberty variables and SVO. Interestingly, the direct effect of testosterone on SVO was consistently significant at an uncorrected threshold across all three girls-only models (b = 0.448, p = .012 for the mediation model involving mPFC; b = 0.452, p = .010 for the model involving anterior TPJ; b = 0.453, p = .010 for the model involving posterior TPJ). This is in line with the results of the aforementioned SVO ~ Testosterone regression model, and it suggests that the relationship between testosterone and SVO in girls may be direct, rather than mediated by neural activity. However, it should be noted that these direct effects do not survive the Bonferroni correction applied for multiple testing.</p>
+  <p>Mediation results and a visual representation of a general mediation model are available in Table 6 and Fig. L, respectively.</p>
+
+  <p class="table-caption"><b>Table 6.</b> Results of the 12 Mediation Models. * = significant at an uncorrected threshold of p &lt; .05. Path A b = unstandardized effect of predictor on mediator; Path B b = unstandardized effect of mediator on outcome variable (SVO). Direct effect = effect of the predictor on the outcome variable while controlling for the mediator and age. Indirect effect = bootstrapped indirect effect (across 5000 samples), 95% confidence intervals are needed to interpret its significance. If 0 is contained within the confidence interval, this effect is not significant. The indirect effect represents the product of the Path A and Path B coefficients (b·b).</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>n</th><th>Predictor</th><th>Mediator</th><th>Path A b (p)</th><th>Path B b (p)</th><th>Direct effect (p)</th><th>Indirect effect [95% CI]</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>145</td><td>PDS</td><td>mPFC</td><td>−0.014 (.902)</td><td>0.021 (.800)</td><td>0.101 (.378)</td><td>0.000 [−0.02, 0.03]</td></tr>
+        <tr><td>2</td><td>146</td><td>PDS</td><td>lrTPJa</td><td>−0.046 (.684)</td><td>−0.066 (.428)</td><td>0.106 (.349)</td><td>0.003 [−0.02, 0.04]</td></tr>
+        <tr><td>3</td><td>146</td><td>PDS</td><td>lrTPJp</td><td>−0.083 (.470)</td><td>−0.052 (.529)</td><td>0.105 (.356)</td><td>0.004 [−0.02, 0.04]</td></tr>
+        <tr><td>4</td><td>143</td><td>Cortisol</td><td>mPFC</td><td>0.072 (.411)</td><td>0.028 (.745)</td><td>−0.007 (.938)</td><td>0.002 [−0.02, 0.03]</td></tr>
+        <tr><td>5</td><td>144</td><td>Cortisol</td><td>lrTPJa</td><td>0.004 (.968)</td><td>−0.075 (.373)</td><td>0.004 (.959)</td><td>0.000 [−0.02, 0.02]</td></tr>
+        <tr><td>6</td><td>144</td><td>Cortisol</td><td>lrTPJp</td><td>0.035 (.691)</td><td>−0.056 (.504)</td><td>0.006 (.944)</td><td>−0.002 [−0.02, 0.02]</td></tr>
+        <tr><td>7 (girls only)</td><td>78</td><td>Testosterone</td><td>mPFC</td><td>−0.079 (.689)</td><td>0.048 (.638)</td><td>0.448* (.012)</td><td>−0.004 [−0.08, 0.04]</td></tr>
+        <tr><td>8 (girls only)</td><td>79</td><td>Testosterone</td><td>lrTPJa</td><td>−0.035 (.871)</td><td>−0.016 (.865)</td><td>0.452* (.010)</td><td>0.001 [−0.05, 0.02]</td></tr>
+        <tr><td>9 (girls only)</td><td>79</td><td>Testosterone</td><td>lrTPJp</td><td>0.014 (.937)</td><td>−0.032 (.776)</td><td>0.453* (.010)</td><td>0.000 [−0.06, 0.03]</td></tr>
+        <tr><td>10 (boys only)</td><td>65</td><td>Testosterone</td><td>mPFC</td><td>−0.025 (.892)</td><td>0.038 (.772)</td><td>0.115 (.554)</td><td>−0.001 [−0.06, 0.05]</td></tr>
+        <tr><td>11 (boys only)</td><td>65</td><td>Testosterone</td><td>lrTPJa</td><td>0.023 (.885)</td><td>−0.152 (.331)</td><td>0.118 (.542)</td><td>−0.004 [−0.07, 0.06]</td></tr>
+        <tr><td>12 (boys only)</td><td>65</td><td>Testosterone</td><td>lrTPJp</td><td>−0.203 (.288)</td><td>−0.039 (.762)</td><td>0.106 (.588)</td><td>0.008 [−0.08, 0.09]</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure style="max-width:480px;margin-left:auto;margin-right:auto;">
+    <img src="images/fig-l-mediation-diagram.png" alt="Diagram of a general mediation model with three boxes labeled Predictor, Mediator, and Outcome variable equals SVO, connected by arrows labeled Path A b, Path B b, and Direct effect.">
+    <figcaption><b>Fig. L.</b> Visual representation of a mediation model.</figcaption>
+  </figure>
+</section>
+
+<section class="chapter" id="discussion">
+  <h2 class="chapter-title">Discussion</h2>
+  <p class="lede">The current study aimed to obtain more clarity regarding the relationship between puberty and social value orientation in an adolescent sample (11–21 years old), investigated across three timepoints.</p>
+  <p>fMRI results revealed neural activation related to the direct self-concept task in the medial prefrontal cortex (mPFC) and bilateral anterior and posterior temporoparietal junction (TPJa, TPJp), in accordance with previous research. The mPFC, bilateral TPJa and TPJp were included in the analyses as mediators, thus testing their involvement in the dynamic between puberty and SVO. Even though these regions were involved in thinking about the self, mediation analyses did not yield any significant indirect effects. As hypothesized, testosterone measurements at wave 1 significantly predicted variance in social value orientation (SVO) at wave 3, but only in girls. Linear regression results revealed no significant findings within the boys-only sample. Lastly, as opposed to our expectations, no significant associations were found between puberty and neural activity during the self-concept fMRI task. Together, these results suggest that the relation between puberty and social development is complex, and that different neural structures could most likely underlie it to some extent. The discussion is organized along the lines of these findings.</p>
+
+  <h3 id="mediation-discussion">Mediation analyses</h3>
+  <p>Social brain regions may have an important mediating role in understanding the relation between pubertal development and social value orientation. This hypothesis is based on prior research stating that the influence of puberty and its characteristic hormones might advance development in key social brain regions.<sup>33</sup> The current study observed significant activity in the mPFC, as well as the bilateral TPJ when thinking about oneself. Specifically, fMRI analyses revealed similar patterns to those reported by other studies. Activation within the mPFC and the TPJ was observed when performing ROI analyses using the Direct &gt; Control contrast, consistent with previous evidence.<sup>46</sup> Such findings allow for interpreting the activity in these brain regions as a possible mechanism that explains pubertal development acting as a booster for social value orientation.</p>
+  <p>This study had the advantage of a three-way longitudinal design, which is the gold standard for testing mediations. This way, it was possible to test whether the relationship between pubertal development (wave 1) and social value orientation (wave 3) was mediated by brain activity (wave 2). Contrary to the expected results, none of the 12 mediation models yielded results that survived the multiple testing correction. Neural activation in the mPFC, TPJa and TPJp does not seem to mediate the relationship between puberty and social value orientation. The only statistically significant result was the direct effect of testosterone on SVO in girls, which had already been confirmed by performing regression analyses, but it did not survive the Bonferroni correction. One reason for the non-significant effects may be that there are several structures involved in the social brain network. Making a distinction between the subregions of the medial prefrontal cortex might have been crucial to finding a mediating role. The ventromedial prefrontal cortex (vmPFC) is argued to support functions such as social cognition while playing a role in judgments of oneself and others.<sup>47</sup> Studies have investigated its involvement in self-related processing, with results suggesting it might be related to guiding one's choices and decisions.<sup>48</sup> Moreover, the same study points towards the vmPFC being increasingly activated during self-evaluations when these are of personal importance.<sup>48</sup> Pubertal development was also associated with increased differentiation between self and other in vmPFC, but only for the social domain.<sup>49</sup> Such literature suggests that the inclusion of the vmPFC alongside puberty and self-evaluation in future research is appropriate. Lastly, the dorsolateral prefrontal cortex seems to be involved in perspective taking and domain differentiation, which could warrant its inclusion in future research investigating self-concept appraisal.<sup>24</sup></p>
+
+  <h3 id="puberty-svo-link">The link between puberty and SVO</h3>
+
+  <h4 id="testosterone-discussion">Testosterone</h4>
+  <p>Consistent with the initial hypothesis, higher testosterone, reflecting more advanced pubertal development, was associated with more prosocial decision-making in adolescent girls. Despite mixed evidence, consensus among scientists based on prior research is that testosterone is linked to aggressive behavior.<sup>50</sup> However, it might be the case that higher testosterone levels also encourage prosocial behavior, as it could be tied to status seeking. A study done on adolescent girls revealed that both pubertal development and testosterone were associated with costly decision-making meant to bring social status.<sup>51</sup></p>
+  <p>It should be noted that the status interpretation is expected to be associated with social ties. However, within the Triple Dominance Measure, the person whom each participant had to distribute resources to was anonymous. Participants were told they would never meet this person, thus making a more prosocial decision in this task would not have brought any direct status benefits to the participant. They were not being observed or observing anyone else. It might therefore be the case that in the current study, status seeking is not the main mechanism to be considered when interpreting these results, because the design left no room for such motivations to occur. Alternatively, it is possible that girls experience more societal pressure aimed at exhibiting prosocial tendencies starting from childhood and continuing well into adolescence,<sup>52,53</sup> and that this behavior is boosted by pubertal development. Evidence points out how women care more about the social context when completing giving tasks.<sup>54</sup> This might also represent a possible explanation as to why social value orientation as a facet of prosocial behavior was significantly predicted in a girls-only sample, and not in boys.</p>
+  <p>In addition to testosterone, the current study also exploratively tested the role of cortisol. Despite consistency over time, this hormone was not correlated with any of the measures included in the design. To further discuss this result, more context about both testosterone and cortisol is needed. Cortisol is also associated with status seeking, with evidence suggesting it moderates the relationship between testosterone and seeking status. This pattern has been coined as the dual hormone hypothesis, according to which higher testosterone is associated with greater status seeking in adolescents, but only when cortisol is low.<sup>55</sup> However, other scientists have been investigating a new line of research, according to which high testosterone levels and low cortisol levels are associated with prosocial behavior, specifically when this behavior confers status.<sup>56,57</sup> In order to investigate status-seeking behavior, a specific study design is needed, such as the participant making their decisions after observing other peers being prosocial or not. Such a study revealed that adolescents with high testosterone and low cortisol displayed a significant increase in prosocial behavior upon observing another prosocial peer, with increased TPJ activation being documented.<sup>58</sup> The current study did not investigate the interaction between testosterone and cortisol further than correlations, of which only one proved significant (during wave 2 of collection). Future research of the dual hormone hypothesis investigating its relevance for prosocial decision-making rather than status seeking might offer valuable input into the relationship between cortisol and testosterone in adolescence.</p>
+  <p>Alternatively, including altruism could prove relevant since it is defined as prosocial behavior that does not lead to personal gain. Prior research on altruism reveals no puberty-related changes, but a testosterone-related decrease in altruism in girls.<sup>59</sup> Although not the same, social value orientation and altruism can both be considered dimensions of prosocial behavior.</p>
+
+  <h4 id="pds-discussion">PDS</h4>
+  <p>This study included not only the objective assessment of puberty-related hormones, but also the subjective interpretation of puberty through the Pubertal Development Scale (PDS). PDS scores increased significantly with age in both boys and girls, and they were correlated with testosterone levels. However, the regressions involving PDS and social value orientation did not lead to any significant findings. There have only been a few studies examining the link between puberty and prosociality. These studies have found that pubertal timing interacts with gender when impacting prosocial behavior<sup>53</sup> and that pubertal development leads to changes in the prosocial behavior of boys when controlling for age.<sup>60</sup> Most of these studies mention behaviors such as altruism, giving to friends and charity. Puberty-related increases were reported when measuring giving and sharing to friends, peer and charity.<sup>59</sup> However, the same study mentions that when investigating social value orientation, no puberty- or even age-related changes occur across adolescence.<sup>59</sup> Such results indicate social value orientation could be more of a personality-dependent aspect of prosocial behavior, hence the stability across time and pubertal change. Previous literature supports this idea, although with caution, because there is limited research on how social value orientation and other personality traits relate to each other.<sup>61</sup> In light of such existing research, the current null findings come to validate the idea that social value orientation is a stable trait that might not be impacted by puberty, but rather by hormones. Perhaps other facets of prosocial behavior are better suited to be investigated alongside puberty, as previous studies suggest.</p>
+  <p>The few papers that investigated puberty chose to split participants into categories rather than on a spectrum, the latter being the approach taken in the current paper. Including pubertal staging and timing might provide a clearer perspective on participants' status. Tanner staging could be particularly useful for this purpose, with 5 categories based on bodily changes in adolescents<sup>62</sup> and literature in favor of this operationalization of puberty.<sup>53,63</sup> Future papers could consider including both PDS and Tanner staging by physical exam. Dividing participants based on categories would also allow for comparisons between different levels of pubertal development and timing. It might be possible that a better reflection of prosocial behavior and more detailed puberty data will bring relevant results, which can subsequently help fill the knowledge gap about puberty and its implications in prosocial behavior.</p>
+
+  <h3 id="direct-reflected">Direct and reflected self-evaluations</h3>
+  <p>The current study only investigated direct self-evaluations in adolescents. Future studies should consider including a reflected self-evaluation condition within their design. Interestingly, the most protracted brain development across adolescence is seen precisely in the mPFC and the TPJ.<sup>64</sup> Neural specialization increases because of a prolonged period of gray matter loss.<sup>65</sup> Similar developmental patterns have been observed for functional brain development. In early adolescents, the TPJ seems to be engaged in both direct and reflected self-evaluations. As they advance in age and head towards early adulthood, research shows this region becomes more specifically active for reflected self-evaluation.<sup>66</sup> One hypothesis could be that during earlier adolescence, distinguishing one's true self-concept from the one shaped by their social environment is a struggle. That is, the skill of perspective-taking and switching between self- and others' views is not yet well-developed. Adolescents place a lot of importance on others' opinions and some beliefs they acquire might not necessarily reflect their own true self, therefore suggesting that direct and reflected self-concept can overlap. Self-concept formation continues across adolescence, as individuals discover what values they identify with, as well as the depth and dimensions of their own inner world. Upon reaching middle to late adolescence, individuals are less likely to superimpose group values upon their personal self-concept; and that would be compatible with evidence that TPJ eventually only becomes active during reflected self-evaluations.</p>
+  <p>As for the mPFC in adolescence, previous research has suggested more activation during direct self-evaluation as opposed to reflected.<sup>22</sup> However, recent studies found patterns of activation that tend to overlap when contrasting direct and reflected self-evaluations.<sup>7</sup> Such findings seem to suggest that as age increases, one's own perspectives might become increasingly aligned with the perceived perspectives of others. As adolescents get better at both knowing themselves and inferring what others think about them, more similar mPFC activity during direct and reflected self-evaluations might explain this alignment. In the stage of late adolescence, there is less reliance on constructing one's identity from the ground up by internalizing thoughts and values from peers. Possessing elevated self-awareness and a stable sense of self means one's own reflection coincides with the one experienced by others, without the latter being able to alter the former as much as it once could have.</p>
+
+  <h3 id="limitations">Limitations and recommendations for future research</h3>
+  <p>The present study had several strengths, including the longitudinal design, but also limitations that should be addressed in future research. The current study lacked dehydroepiandrosterone (DHEA) measurements, an important adrenal hormone released by the HPA axis. A surge in DHEA production occurs at adrenarche and levels continue to grow throughout adolescence, reaching their peak around 25–30 years of age.<sup>67</sup> Research has suggested that DHEA and testosterone in girls might have a role in coordinating cognitive control with affective processes in the context of peer evaluation.<sup>68</sup> Furthermore, positive associations were observed between DHEA and neural activity in social brain areas during a mentalizing task administered to adolescent girls.<sup>69</sup></p>
+  <p>Literature suggests DHEA interacts with cortisol across multiple settings and throughout adolescence, but it is an under-researched topic.<sup>70</sup> Future studies investigating self-concept in adolescence should include DHEA in order to investigate its effects on prosocial behavior. Moreover, estrogen and progesterone are two hormones that fluctuate across the menstrual cycle, which could be involved in prosocial decision-making and behavior. Previous literature reports that higher levels of social value orientation were observed in women who were in their mid-luteal phase, characterized by higher progesterone levels.<sup>71</sup> Such findings suggest that women's social value orientation might vary depending on ovarian hormone levels and cycle stages. It would be very insightful to research whether such findings replicate in an adolescent sample, especially since menstrual cycle length can vary in the first years following menarche. A more comprehensive hormone measurement procedure would be ideal. The current study only included one sample per participant per wave. Hormone levels fluctuate, so the inclusion of DHEA and progesterone would require repeated measurements at different menstrual cycle stages in order to capture the full extent of hormonal variation.</p>
+  <p>The usage of the Triple Dominance Measure as an instrument to assess social value orientation could be considered a limitation. In this tool, the recipient of the resources is referred to as 'Other', a stranger whom the participant will never meet. There is no other context given to the participant. Evidence suggests this particular task might lack sensitivity for individual differences and proposes a better method, the SVO Slider Measure.<sup>72</sup> This measure might be better suited for designs where no categorization is wanted, as it is able to produce a ratio-level dependent variable and the score distribution can be visualized by plotting angles. The Slider Measure is thus capable of successfully covering the gradation of preferences when it comes to social orientation. Moreover, this tool has been shown to demonstrate the highest test-retest reliability compared to its alternatives,<sup>73</sup> very relevant in the context of longitudinal research.</p>
+  <p>Another aspect that the SVO Slider Measure might help address is the ceiling effect observed when investigating SVO tendencies at time point 3. When inspecting Fig. I(a), most participants achieved a score of 27 on the Triple Dominance Measure (n = 68), which means they adopted a prosocial decision-making style consistently across 9 situations. Ceiling effects are quite common in longitudinal research involving healthy participants,<sup>74</sup> and if seen in a dependent variable like in this case, a study might yield null findings even though there is a real effect of the independent variable(s).<sup>75</sup> A better SVO tool might help alleviate any ceiling effects and thus allow for capturing effects that might have been camouflaged. The SVO Slider Measure covers four different SVO orientations, as opposed to the Triple Dominance Measure, which only allows for three of them. We believe using the Slider Measure could thus prevent any ceiling effects in a future sample of healthy adolescents.</p>
+  <p>Lastly, literature reveals that the development and manifestation of giving behavior are impacted by different factors.<sup>76</sup> The situational context matters, such as being observed by peers when dividing resources. Evidence suggests that giving during adolescence varies when other situational demands occur, namely resource allocation to another group increases when a participant is being observed or receives feedback.<sup>77</sup> Consequently, using the SVO Slider Measure in future studies can lead to valuable information regarding how the context, framing and information given to participants affect their decision to divide resources between themselves and others.<sup>72</sup> All these aspects point towards a credible potential of this tool to capture variability in SVO which arises as an effect of motivation and context cues.</p>
+</section>
+
+<section class="chapter" id="conclusion">
+  <h2 class="chapter-title">Conclusion</h2>
+  <p>The current study sought to investigate the mediating role of neural activation within social brain regions in the relationship between pubertal development and social value orientation. Although no evidence was observed for said mediating role of either mPFC or TPJ activity, testosterone was positively associated with social value orientation in girls. Such findings underscore the complexity of the relationship between puberty and prosocial decision-making. Future research should continue investigating the formation and characteristics of the self-concept during adolescence, with a focus on how it shapes prosocial decision-making and which neural structures support this process.</p>
+</section>
+
+<section class="chapter" id="acknowledgements">
+  <h2 class="chapter-title">Acknowledgements</h2>
+  <p>I'd like to thank my supervisors, Prof. Dr. Eveline Crone and Dr. Kayla Green. I am incredibly grateful for all the guidance and advice they've provided me with. I am thankful for being part of the GUTS010 and SYNClab teams, among whom I've felt welcome since the beginning of my internship. I also appreciate my family and friends for supporting me throughout these past two years.</p>
+  <p>All data used in this paper were collected within the Leiden Self-concept study.<sup>7</sup> Data were made accessible thanks to Prof. Dr. Eveline Crone.</p>
+</section>
+
+<section class="chapter" id="references">
+  <h2 class="chapter-title">References</h2>
+  <ol class="refs">
+    <li>Szwedo, D. E., Hessel, E. T., Loeb, E. L., Hafen, C. A., &amp; Allen, J. P. (2017). Adolescent support seeking as a path to adult functional independence. <em>Developmental Psychology, 53</em>(5), 949–961. <a href="https://doi.org/10.1037/dev0000277" target="_blank" rel="noopener">https://doi.org/10.1037/dev0000277</a></li>
+    <li>Branje, S., De Moor, E. L., Spitzer, J., &amp; Becht, A. I. (2021). Dynamics of Identity Development in Adolescence: A Decade in Review. <em>Journal of Research on Adolescence, 31</em>(4), 908–927. <a href="https://doi.org/10.1111/jora.12678" target="_blank" rel="noopener">https://doi.org/10.1111/jora.12678</a></li>
+    <li>Parker, J. G., Rubin, K. H., Erath, S. A., Wojslawowicz, J. C., &amp; Buskirk, A. A. (2015). Peer Relationships, Child Development, and Adjustment: A Developmental Psychopathology Perspective. In <em>Developmental Psychopathology</em> (pp. 419–493). Wiley. <a href="https://doi.org/10.1002/9780470939383.ch12" target="_blank" rel="noopener">https://doi.org/10.1002/9780470939383.ch12</a></li>
+    <li>Vartanian, L. R. (2000). Revisiting the imaginary audience and personal fable constructs of adolescent egocentrism: a conceptual review. <em>Adolescence, 35</em>(140), 639–661.</li>
+    <li>van Doeselaar, L., Becht, A. I., Klimstra, T. A., &amp; Meeus, W. H. J. (2018). A Review and Integration of Three Key Components of Identity Development. <em>European Psychologist, 23</em>(4), 278–288. <a href="https://doi.org/10.1027/1016-9040/a000334" target="_blank" rel="noopener">https://doi.org/10.1027/1016-9040/a000334</a></li>
+    <li>Meeus, W., Van De Schoot, R., Keijsers, L., Schwartz, S. J., &amp; Branje, S. (2010). On the Progression and Stability of Adolescent Identity Formation: A Five-Wave Longitudinal Study in Early-to-Middle and Middle-to-Late Adolescence. <em>Child Development, 81</em>(5), 1565–1581. <a href="https://doi.org/10.1111/j.1467-8624.2010.01492.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.1467-8624.2010.01492.x</a></li>
+    <li>Van der Cruijsen, R., Peters, S., Zoetendaal, K. P. M., Pfeifer, J. H., &amp; Crone, E. A. (2019). Direct and reflected self-concept show increasing similarity across adolescence: A functional neuroimaging study. <em>Neuropsychologia, 129</em>, 407–417. <a href="https://doi.org/10.1016/j.neuropsychologia.2019.05.001" target="_blank" rel="noopener">https://doi.org/10.1016/j.neuropsychologia.2019.05.001</a></li>
+    <li>Crocetti, E., Prati, F., &amp; Rubini, M. (2018). The Interplay of Personal and Social Identity. <em>European Psychologist, 23</em>(4), 300–310. <a href="https://doi.org/10.1027/1016-9040/a000336" target="_blank" rel="noopener">https://doi.org/10.1027/1016-9040/a000336</a></li>
+    <li>Baumeister, R. F. (1998). The self. In D. T. Gilbert, S. T. Fiske, &amp; G. Lindzey (Eds.), <em>The handbook of social psychology</em> (4th ed., Vol. 1, pp. 680–740). McGraw-Hill.</li>
+    <li>Fiske, S. T. (2004). The self: Social to the core. In C. Johnson &amp; E. McKeever (Eds.), <em>Social Beings: A Core Motives Approach to Social Psychology</em> (2nd ed., pp. 177–224). John Wiley and Sons.</li>
+    <li>Blakemore, S.-J. (2008). The social brain in adolescence. <em>Nature Reviews Neuroscience, 9</em>(4), 267–277. <a href="https://doi.org/10.1038/nrn2353" target="_blank" rel="noopener">https://doi.org/10.1038/nrn2353</a></li>
+    <li>Burnett, S., Sebastian, C., Cohen Kadosh, K., &amp; Blakemore, S.-J. (2011). The social brain in adolescence: Evidence from functional magnetic resonance imaging and behavioural studies. <em>Neuroscience &amp; Biobehavioral Reviews, 35</em>(8), 1654–1664. <a href="https://doi.org/10.1016/j.neubiorev.2010.10.011" target="_blank" rel="noopener">https://doi.org/10.1016/j.neubiorev.2010.10.011</a></li>
+    <li>Nelson, E. E., Jarcho, J. M., &amp; Guyer, A. E. (2016). Social re-orientation and brain development: An expanded and updated view. <em>Developmental Cognitive Neuroscience, 17</em>, 118–127. <a href="https://doi.org/10.1016/j.dcn.2015.12.008" target="_blank" rel="noopener">https://doi.org/10.1016/j.dcn.2015.12.008</a></li>
+    <li>Crone, E. A., &amp; Fuligni, A. J. (2020). Self and Others in Adolescence. <em>Annual Review of Psychology, 71</em>(1), 447–469. <a href="https://doi.org/10.1146/annurev-psych-010419-050937" target="_blank" rel="noopener">https://doi.org/10.1146/annurev-psych-010419-050937</a></li>
+    <li>Pfeifer, J. H., &amp; Peake, S. J. (2012). Self-development: Integrating cognitive, socioemotional, and neuroimaging perspectives. <em>Developmental Cognitive Neuroscience, 2</em>(1), 55–69. <a href="https://doi.org/10.1016/j.dcn.2011.07.012" target="_blank" rel="noopener">https://doi.org/10.1016/j.dcn.2011.07.012</a></li>
+    <li>Lou, H. C., Luber, B., Crupain, M., Keenan, J. P., Nowak, M., Kjaer, T. W., Sackeim, H. A., &amp; Lisanby, S. H. (2004). Parietal cortex and representation of the mental Self. <em>Proceedings of the National Academy of Sciences, 101</em>(17), 6827–6832. <a href="https://doi.org/10.1073/pnas.0400049101" target="_blank" rel="noopener">https://doi.org/10.1073/pnas.0400049101</a></li>
+    <li>Ochsner, K. N., Beer, J. S., Robertson, E. R., Cooper, J. C., Gabrieli, J. D. E., Kihsltrom, J. F., &amp; D'Esposito, M. (2005). The neural correlates of direct and reflected self-knowledge. <em>NeuroImage, 28</em>(4), 797–814. <a href="https://doi.org/10.1016/j.neuroimage.2005.06.069" target="_blank" rel="noopener">https://doi.org/10.1016/j.neuroimage.2005.06.069</a></li>
+    <li>Svoboda, E., McKinnon, M. C., &amp; Levine, B. (2006). The functional neuroanatomy of autobiographical memory: A meta-analysis. <em>Neuropsychologia, 44</em>(12), 2189–2208. <a href="https://doi.org/10.1016/j.neuropsychologia.2006.05.023" target="_blank" rel="noopener">https://doi.org/10.1016/j.neuropsychologia.2006.05.023</a></li>
+    <li>Barendse, M. E. A., Cosme, D., Flournoy, J. C., Vijayakumar, N., Cheng, T. W., Allen, N. B., &amp; Pfeifer, J. H. (2020). Neural correlates of self-evaluation in relation to age and pubertal development in early adolescent girls. <em>Developmental Cognitive Neuroscience, 44</em>, 100799. <a href="https://doi.org/10.1016/j.dcn.2020.100799" target="_blank" rel="noopener">https://doi.org/10.1016/j.dcn.2020.100799</a></li>
+    <li>Van Buuren, M., Walsh, R. J., Sijtsma, H., Hollarek, M., Lee, N. C., Bos, P. A., &amp; Krabbendam, L. (2020). Neural correlates of self- and other-referential processing in young adolescents and the effects of testosterone and peer similarity. <em>NeuroImage, 219</em>, 117060. <a href="https://doi.org/10.1016/j.neuroimage.2020.117060" target="_blank" rel="noopener">https://doi.org/10.1016/j.neuroimage.2020.117060</a></li>
+    <li>Veroude, K., Jolles, J., Croiset, G., &amp; Krabbendam, L. (2014). Sex differences in the neural bases of social appraisals. <em>Social Cognitive and Affective Neuroscience, 9</em>(4), 513–519. <a href="https://doi.org/10.1093/scan/nst015" target="_blank" rel="noopener">https://doi.org/10.1093/scan/nst015</a></li>
+    <li>Pfeifer, J. H., Masten, C. L., Borofsky, L. A., Dapretto, M., Fuligni, A. J., &amp; Lieberman, M. D. (2009). Neural Correlates of Direct and Reflected Self-Appraisals in Adolescents and Adults: When Social Perspective-Taking Informs Self-Perception. <em>Child Development, 80</em>(4), 1016–1038. <a href="https://doi.org/10.1111/j.1467-8624.2009.01314.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.1467-8624.2009.01314.x</a></li>
+    <li>Pfeifer, J. H., Mahy, C. E. V., Merchant, J. S., Chen, C., Masten, C. L., Fuligni, A. J., Lieberman, M. D., Lessard, J., Dong, Q., &amp; Chen, C. (2017). Neural systems for reflected and direct self-appraisals in Chinese young adults: Exploring the role of the temporal-parietal junction. <em>Cultural Diversity &amp; Ethnic Minority Psychology, 23</em>(1), 45–58. <a href="https://doi.org/10.1037/cdp0000122" target="_blank" rel="noopener">https://doi.org/10.1037/cdp0000122</a></li>
+    <li>Crone, E. A., Sweijen, S. W., Te Brinke, L. W., &amp; Van De Groep, S. (2022). Pathways for engaging in prosocial behavior in adolescence. In <em>Advances in Child Development and Behavior</em> (Vol. 63, pp. 149–190). Elsevier. <a href="https://doi.org/10.1016/bs.acdb.2022.03.003" target="_blank" rel="noopener">https://doi.org/10.1016/bs.acdb.2022.03.003</a></li>
+    <li>Eisenberg, N., Spinrad, T. L., &amp; Knafo-Noam, A. (2015). Prosocial development. In <em>Handbook of child psychology</em> (7th ed., pp. 610–656). Wiley.</li>
+    <li>Do, K. T., Guassi Moreira, J. F., &amp; Telzer, E. H. (2017). But is helping you worth the risk? Defining Prosocial Risk Taking in adolescence. <em>Developmental Cognitive Neuroscience, 25</em>, 260–271. <a href="https://doi.org/10.1016/j.dcn.2016.11.008" target="_blank" rel="noopener">https://doi.org/10.1016/j.dcn.2016.11.008</a></li>
+    <li>Van Der Graaff, J., Carlo, G., Crocetti, E., Koot, H. M., &amp; Branje, S. (2017). Prosocial Behavior in Adolescence: Gender Differences in Development and Links with Empathy. <em>Journal of Youth and Adolescence, 47</em>(5), 1086–1099. <a href="https://doi.org/10.1007/s10964-017-0786-1" target="_blank" rel="noopener">https://doi.org/10.1007/s10964-017-0786-1</a></li>
+    <li>Cutler, J., &amp; Campbell-Meiklejohn, D. (2019). A comparative fMRI meta-analysis of altruistic and strategic decisions to give. <em>NeuroImage, 184</em>, 227–241. <a href="https://doi.org/10.1016/j.neuroimage.2018.09.009" target="_blank" rel="noopener">https://doi.org/10.1016/j.neuroimage.2018.09.009</a></li>
+    <li>Hu, X., Xu, Z., &amp; Mai, X. (2017). Social value orientation modulates the processing of outcome evaluation involving others. <em>Social Cognitive and Affective Neuroscience, 12</em>(11), 1730–1739. <a href="https://doi.org/10.1093/scan/nsx102" target="_blank" rel="noopener">https://doi.org/10.1093/scan/nsx102</a></li>
+    <li>Van Lange, P. A. M., De Bruin, E. M. N., Otten, W., &amp; Joireman, J. A. (1997). Development of prosocial, individualistic, and competitive orientations: Theory and preliminary evidence. <em>Journal of Personality and Social Psychology, 73</em>(4), 733–746. <a href="https://doi.org/10.1037/0022-3514.73.4.733" target="_blank" rel="noopener">https://doi.org/10.1037/0022-3514.73.4.733</a></li>
+    <li>Murphy, R. O., Ackermann, K. A., &amp; Handgraaf, M. J. J. (2011). Measuring Social Value Orientation. <em>Judgment and Decision Making, 6</em>(8), 771–781. <a href="https://doi.org/10.1017/S1930297500004204" target="_blank" rel="noopener">https://doi.org/10.1017/S1930297500004204</a></li>
+    <li>Sebastian, C., Burnett, S., &amp; Blakemore, S.-J. (2008). Development of the self-concept during adolescence. <em>Trends in Cognitive Sciences, 12</em>(11), 441–446. <a href="https://doi.org/10.1016/j.tics.2008.07.008" target="_blank" rel="noopener">https://doi.org/10.1016/j.tics.2008.07.008</a></li>
+    <li>Goddings, A., Beltz, A., Peper, J. S., Crone, E. A., &amp; Braams, B. R. (2019). Understanding the Role of Puberty in Structural and Functional Development of the Adolescent Brain. <em>Journal of Research on Adolescence, 29</em>(1), 32–53. <a href="https://doi.org/10.1111/jora.12408" target="_blank" rel="noopener">https://doi.org/10.1111/jora.12408</a></li>
+    <li>Sisk, C. L., &amp; Zehr, J. L. (2005). Pubertal hormones organize the adolescent brain and behavior. <em>Frontiers in Neuroendocrinology, 26</em>(3–4), 163–174. <a href="https://doi.org/10.1016/j.yfrne.2005.10.003" target="_blank" rel="noopener">https://doi.org/10.1016/j.yfrne.2005.10.003</a></li>
+    <li>Petersen, A. C., Crockett, L., Richards, M., &amp; Boxer, A. (1988). A self-report measure of pubertal status: Reliability, validity, and initial norms. <em>Journal of Youth and Adolescence, 17</em>(2), 117–133. <a href="https://doi.org/10.1007/BF01537962" target="_blank" rel="noopener">https://doi.org/10.1007/BF01537962</a></li>
+    <li>Denny, B. T., Kober, H., Wager, T. D., &amp; Ochsner, K. N. (2012). A Meta-analysis of Functional Neuroimaging Studies of Self- and Other Judgments Reveals a Spatial Gradient for Mentalizing in Medial Prefrontal Cortex. <em>Journal of Cognitive Neuroscience, 24</em>(8), 1742–1752. <a href="https://doi.org/10.1162/jocn_a_00233" target="_blank" rel="noopener">https://doi.org/10.1162/jocn_a_00233</a></li>
+    <li>van der Cruijsen, R., Peters, S., van der Aar, L. P. E., &amp; Crone, E. A. (2018). The neural signature of self-concept development in adolescence: The role of domain and valence distinctions. <em>Developmental Cognitive Neuroscience, 30</em>, 1–12. <a href="https://doi.org/10.1016/j.dcn.2017.11.005" target="_blank" rel="noopener">https://doi.org/10.1016/j.dcn.2017.11.005</a></li>
+    <li>Toenders, Y. J., De Moor, M. H. M., Van Der Cruijsen, R., Green, K., Achterberg, M., &amp; Crone, E. A. (2024). Within-person biological mechanisms of mood variability in childhood and adolescence. <em>Human Brain Mapping, 45</em>(11), e26766. <a href="https://doi.org/10.1002/hbm.26766" target="_blank" rel="noopener">https://doi.org/10.1002/hbm.26766</a></li>
+    <li>Dale, A. M., Greve, D. N., &amp; Burock, M. A. (1999). Optimal Stimulus sequences for Event-Related fMRI. Paper Presented at the 5th International Conference on Functional Mapping of the Human Brain.</li>
+    <li>Tierney, T. M., Alexander, N. A., Ashburner, J., Avila, N. L., Balbastre, Y., Barnes, G., Bezsudnova, Y., Brudfors, M., Eckstein, K., Flandin, G., Friston, K., Jafarian, A., Kowalczyk, O. S., Litvak, V., Medrano, J., Mellor, S., O'Neill, G., Parr, T., Razi, A., … Zeidman, P. (2025). SPM 25: open source neuroimaging analysis software. <em>Journal of Open Source Software, 10</em>(110), 8103. <a href="https://doi.org/10.21105/joss.08103" target="_blank" rel="noopener">https://doi.org/10.21105/joss.08103</a></li>
+    <li>Brett, M., Anton, J. L., Valabregue, R., &amp; Poline, J. B. (2002). Region of interest analysis using an SPM toolbox [abstract]. <em>NeuroImage, 16</em>(2).</li>
+    <li>R Core Team. (2025). <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/" target="_blank" rel="noopener">https://www.R-project.org/</a></li>
+    <li>Hayes, A. F. (2022). <em>Introduction to mediation, moderation, and conditional process analysis: A regression-based approach</em>.</li>
+    <li>Senefeld, J. W., Lambelet Coleman, D., Johnson, P. W., Carter, R. E., Clayburn, A. J., &amp; Joyner, M. J. (2020). Divergence in Timing and Magnitude of Testosterone Levels Between Male and Female Youths. <em>JAMA, 324</em>(1), 99. <a href="https://doi.org/10.1001/jama.2020.5655" target="_blank" rel="noopener">https://doi.org/10.1001/jama.2020.5655</a></li>
+    <li>Paus, T., Nawaz-Khan, I., Leonard, G., Perron, M., Pike, G. B., Pitiot, A., Richer, L., Susman, E., Veillette, S., &amp; Pausova, Z. (2009). Sexual dimorphism in the adolescent brain: Role of testosterone and androgen receptor in global and local volumes of grey and white matter. <em>Hormones and Behavior, 57</em>(1), 63–75. <a href="https://doi.org/10.1016/j.yhbeh.2009.08.004" target="_blank" rel="noopener">https://doi.org/10.1016/j.yhbeh.2009.08.004</a></li>
+    <li>Van Der Cruijsen, R., Blankenstein, N. E., Spaans, J. P., Peters, S., &amp; Crone, E. A. (2023). Longitudinal self-concept development in adolescence. <em>Social Cognitive and Affective Neuroscience, 18</em>(1), nsac062. <a href="https://doi.org/10.1093/scan/nsac062" target="_blank" rel="noopener">https://doi.org/10.1093/scan/nsac062</a></li>
+    <li>Delgado, M. R., Beer, J. S., Fellows, L. K., Huettel, S. A., Platt, M. L., Quirk, G. J., &amp; Schiller, D. (2016). Viewpoints: Dialogues on the functional role of the ventromedial prefrontal cortex. <em>Nature Neuroscience, 19</em>(12), 1545–1552. <a href="https://doi.org/10.1038/nn.4438" target="_blank" rel="noopener">https://doi.org/10.1038/nn.4438</a></li>
+    <li>D'Argembeau, A. (2013). On the Role of the Ventromedial Prefrontal Cortex in Self-Processing: The Valuation Hypothesis. <em>Frontiers in Human Neuroscience, 7</em>. <a href="https://doi.org/10.3389/fnhum.2013.00372" target="_blank" rel="noopener">https://doi.org/10.3389/fnhum.2013.00372</a></li>
+    <li>Pfeifer, J. H., Kahn, L. E., Merchant, J. S., Peake, S. J., Veroude, K., Masten, C. L., Lieberman, M. D., Mazziotta, J. C., &amp; Dapretto, M. (2013). Longitudinal Change in the Neural Bases of Adolescent Social Self-Evaluations: Effects of Age and Pubertal Development. <em>The Journal of Neuroscience, 33</em>(17), 7415–7419. <a href="https://doi.org/10.1523/JNEUROSCI.4074-12.2013" target="_blank" rel="noopener">https://doi.org/10.1523/JNEUROSCI.4074-12.2013</a></li>
+    <li>Geniole, S. N., Bird, B. M., McVittie, J. S., Purcell, R. B., Archer, J., &amp; Carré, J. M. (2020). Is testosterone linked to human aggression? A meta-analytic examination of the relationship between baseline, dynamic, and manipulated testosterone on human aggression. <em>Hormones and Behavior, 123</em>, 104644. <a href="https://doi.org/10.1016/j.yhbeh.2019.104644" target="_blank" rel="noopener">https://doi.org/10.1016/j.yhbeh.2019.104644</a></li>
+    <li>Cardoos, S. L., Ballonoff Suleiman, A., Johnson, M., Van Den Bos, W., Hinshaw, S. P., &amp; Dahl, R. E. (2017). Social status strategy in early adolescent girls: Testosterone and value-based decision making. <em>Psychoneuroendocrinology, 81</em>, 14–21. <a href="https://doi.org/10.1016/j.psyneuen.2017.03.013" target="_blank" rel="noopener">https://doi.org/10.1016/j.psyneuen.2017.03.013</a></li>
+    <li>Brody, L. R., &amp; Hall, J. A. (1993). Gender and emotion. In <em>Handbook of Emotions</em> (pp. 447–460). Guilford Press.</li>
+    <li>Carlo, G., Crockett, L. J., Wolff, J. M., &amp; Beal, S. J. (2012). The Role of Emotional Reactivity, Self-regulation, and Puberty in Adolescents' Prosocial Behaviors. <em>Social Development, 21</em>(4), 667–685. <a href="https://doi.org/10.1111/j.1467-9507.2012.00660.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.1467-9507.2012.00660.x</a></li>
+    <li>Espinosa, M. P., &amp; Kovářík, J. (2015). Prosocial behavior and gender. <em>Frontiers in Behavioral Neuroscience, 9</em>. <a href="https://doi.org/10.3389/fnbeh.2015.00088" target="_blank" rel="noopener">https://doi.org/10.3389/fnbeh.2015.00088</a></li>
+    <li>Cima, M., Meulenbeek, K., Spagnuolo, F., Oosterink, F., Thijssen, S., Smeijers, D., Valenzuela Pascual, C., Mouratidis, A., Oosterling, M., Riem, M., &amp; Loheide-Niesmann, L. (2025). A systematic review of the relationship between cortisol, testosterone, and aggression in children and adolescents. <em>Aggression and Violent Behavior, 82</em>, 102051. <a href="https://doi.org/10.1016/j.avb.2025.102051" target="_blank" rel="noopener">https://doi.org/10.1016/j.avb.2025.102051</a></li>
+    <li>Knight, E. L., Sarkar, A., Prasad, S., &amp; Mehta, P. H. (2020). Beyond the challenge hypothesis: The emergence of the dual-hormone hypothesis and recommendations for future research. <em>Hormones and Behavior, 123</em>, 104657. <a href="https://doi.org/10.1016/j.yhbeh.2019.104657" target="_blank" rel="noopener">https://doi.org/10.1016/j.yhbeh.2019.104657</a></li>
+    <li>Prasad, S., Knight, E. L., &amp; Mehta, P. H. (2019). Basal testosterone's relationship with dictator game decision-making depends on cortisol reactivity to acute stress: A dual-hormone perspective on dominant behavior during resource allocation. <em>Psychoneuroendocrinology, 101</em>, 150–159. <a href="https://doi.org/10.1016/j.psyneuen.2018.11.012" target="_blank" rel="noopener">https://doi.org/10.1016/j.psyneuen.2018.11.012</a></li>
+    <li>Duell, N., Van Hoorn, J., McCormick, E. M., Prinstein, M. J., &amp; Telzer, E. H. (2021). Hormonal and neural correlates of prosocial conformity in adolescents. <em>Developmental Cognitive Neuroscience, 48</em>, 100936. <a href="https://doi.org/10.1016/j.dcn.2021.100936" target="_blank" rel="noopener">https://doi.org/10.1016/j.dcn.2021.100936</a></li>
+    <li>Sweijen, S. W., Te Brinke, L. W., Van De Groep, S., &amp; Crone, E. A. (2025). A Longitudinal Study of Multidimensional Prosocial Behavior During Adolescence. <em>Child Development, 96</em>(6), 1946–1967. <a href="https://doi.org/10.1111/cdev.70009" target="_blank" rel="noopener">https://doi.org/10.1111/cdev.70009</a></li>
+    <li>Ahmed, S., Foulkes, L., Leung, J. T., Griffin, C., Sakhardande, A., Bennett, M., Dunning, D. L., Griffiths, K., Parker, J., Kuyken, W., Williams, J. M. G., Dalgleish, T., &amp; Blakemore, S. J. (2020). Susceptibility to prosocial and antisocial influence in adolescence. <em>Journal of Adolescence, 84</em>(1), 56–68. <a href="https://doi.org/10.1016/j.adolescence.2020.07.012" target="_blank" rel="noopener">https://doi.org/10.1016/j.adolescence.2020.07.012</a></li>
+    <li>Bogaert, S., Boone, C., &amp; Declerck, C. (2008). Social value orientation and cooperation in social dilemmas: A review and conceptual model. <em>British Journal of Social Psychology, 47</em>(3), 453–480. <a href="https://doi.org/10.1348/014466607X244970" target="_blank" rel="noopener">https://doi.org/10.1348/014466607X244970</a></li>
+    <li>Tanner, J. M. (1962). <em>Growth at adolescence</em> (2nd ed.). Blackwell Scientific Publications.</li>
+    <li>Dorn, L. D., Dahl, R. E., Woodward, H. R., &amp; Biro, F. (2006). Defining the Boundaries of Early Adolescence: A User's Guide to Assessing Pubertal Status and Pubertal Timing in Research With Adolescents. <em>Applied Developmental Science, 10</em>(1), 30–56. <a href="https://doi.org/10.1207/s1532480xads1001_3" target="_blank" rel="noopener">https://doi.org/10.1207/s1532480xads1001_3</a></li>
+    <li>Mills, K. L., Lalonde, F., Clasen, L. S., Giedd, J. N., &amp; Blakemore, S.-J. (2014). Developmental changes in the structure of the social brain in late childhood and adolescence. <em>Social Cognitive and Affective Neuroscience, 9</em>(1), 123–131. <a href="https://doi.org/10.1093/scan/nss113" target="_blank" rel="noopener">https://doi.org/10.1093/scan/nss113</a></li>
+    <li>Casey, B., Tottenham, N., Liston, C., &amp; Durston, S. (2005). Imaging the developing brain: what have we learned about cognitive development? <em>Trends in Cognitive Sciences, 9</em>(3), 104–110. <a href="https://doi.org/10.1016/j.tics.2005.01.011" target="_blank" rel="noopener">https://doi.org/10.1016/j.tics.2005.01.011</a></li>
+    <li>Carter, R. M., &amp; Huettel, S. A. (2013). A nexus model of the temporal–parietal junction. <em>Trends in Cognitive Sciences, 17</em>(7), 328–336. <a href="https://doi.org/10.1016/j.tics.2013.05.007" target="_blank" rel="noopener">https://doi.org/10.1016/j.tics.2013.05.007</a></li>
+    <li>Young, D. G., Skibinski, G., Mason, J. I., &amp; James, K. (1999). The influence of age and gender on serum dehydroepiandrosterone sulphate (DHEA-S), IL-6, IL-6 soluble receptor (IL-6 sR) and transforming growth factor beta 1 (TGF-beta1) levels in normal healthy blood donors. <em>Clinical and Experimental Immunology, 117</em>(3), 476–481. <a href="https://doi.org/10.1046/j.1365-2249.1999.01003.x" target="_blank" rel="noopener">https://doi.org/10.1046/j.1365-2249.1999.01003.x</a></li>
+    <li>Pelletier-Baldelli, A., Sheridan, M. A., Rudolph, M. D., Eisenlohr-Moul, T., Martin, S., Srabani, E. M., Giletta, M., Hastings, P. D., Nock, M. K., Slavich, G. M., Rudolph, K. D., Prinstein, M. J., &amp; Miller, A. B. (2024). Brain network connectivity during peer evaluation in adolescent females: Associations with age, pubertal hormones, timing, and status. <em>Developmental Cognitive Neuroscience, 66</em>, 101357. <a href="https://doi.org/10.1016/j.dcn.2024.101357" target="_blank" rel="noopener">https://doi.org/10.1016/j.dcn.2024.101357</a></li>
+    <li>Goddings, A., Burnett Heyes, S., Bird, G., Viner, R. M., &amp; Blakemore, S. (2012). The relationship between puberty and social emotion processing. <em>Developmental Science, 15</em>(6), 801–811. <a href="https://doi.org/10.1111/j.1467-7687.2012.01174.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.1467-7687.2012.01174.x</a></li>
+    <li>Kamin, H. S., &amp; Kertes, D. A. (2017). Cortisol and DHEA in development and psychopathology. <em>Hormones and Behavior, 89</em>, 69–85. <a href="https://doi.org/10.1016/j.yhbeh.2016.11.018" target="_blank" rel="noopener">https://doi.org/10.1016/j.yhbeh.2016.11.018</a></li>
+    <li>Wang, J.-X., Zhuang, J.-Y., Fu, L., &amp; Lei, Q. (2021). Social Orientation in the Luteal Phase: Increased Social Feedback Sensitivity, Inhibitory Response, Interpersonal Anxiety and Cooperation Preference. <em>Evolutionary Psychology, 19</em>(1), 1474704920986866. <a href="https://doi.org/10.1177/1474704920986866" target="_blank" rel="noopener">https://doi.org/10.1177/1474704920986866</a></li>
+    <li>Murphy, R. O., &amp; Ackermann, K. A. (2014). Social Value Orientation: Theoretical and Measurement Issues in the Study of Social Preferences. <em>Personality and Social Psychology Review, 18</em>(1), 13–41. <a href="https://doi.org/10.1177/1088868313501745" target="_blank" rel="noopener">https://doi.org/10.1177/1088868313501745</a></li>
+    <li>Bakker, D. M., &amp; Dijkstra, J. (2021). Comparing the Slider Measure of Social Value Orientation with Its Main Alternatives. <em>Social Psychology Quarterly, 84</em>(3), 235–245. <a href="https://doi.org/10.1177/01902725211008938" target="_blank" rel="noopener">https://doi.org/10.1177/01902725211008938</a></li>
+    <li>Haqiqatkhah, M. M. (2025, May 23). Floor and ceiling effects. <em>MATILDA Preprints</em>.</li>
+    <li>Lewis-Beck, M. S., Bryman, A., &amp; Futing Liao, T. (2004). Ceiling Effect. In M. S. Lewis-Beck, A. Bryman, &amp; T. Futing Liao (Eds.), <em>The SAGE Encyclopedia of Social Science Research Methods</em>. Sage Publications, Inc. <a href="https://doi.org/10.4135/9781412950589.n102" target="_blank" rel="noopener">https://doi.org/10.4135/9781412950589.n102</a></li>
+    <li>Crone, E. A., &amp; Achterberg, M. (2022). Prosocial development in adolescence. <em>Current Opinion in Psychology, 44</em>, 220–225. <a href="https://doi.org/10.1016/j.copsyc.2021.09.020" target="_blank" rel="noopener">https://doi.org/10.1016/j.copsyc.2021.09.020</a></li>
+    <li>van Hoorn, J., Fuligni, A. J., Crone, E. A., &amp; Galván, A. (2016). Peer influence effects on risk-taking and prosocial decision-making in adolescence: insights from neuroimaging studies. <em>Current Opinion in Behavioral Sciences, 10</em>, 59–64. <a href="https://doi.org/10.1016/j.cobeha.2016.05.007" target="_blank" rel="noopener">https://doi.org/10.1016/j.cobeha.2016.05.007</a></li>
+  </ol>
+</section>
+
+</main>
+
+<footer>
+  <p>Anastasia Bălan · Master's thesis, Leiden University · Data from the Leiden Self-Concept study, courtesy of Prof. Dr. Eveline Crone.</p>
+</footer>
+
+<script>
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const openBtn = document.getElementById('openDrawer');
+  const closeBtn = document.getElementById('closeDrawer');
+  function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('open'); }
+  function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('open'); }
+  openBtn.addEventListener('click', openDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeDrawer(); });
+</script>
+
+</body>
+</html>
